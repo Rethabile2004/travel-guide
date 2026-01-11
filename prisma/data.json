@@ -1,0 +1,107 @@
+[
+  {
+    "name": "Cape Town",
+    "slug": "cape-town",
+    "province": "WESTERN_CAPE",
+    "description": "A coastal city known for Table Mountain, beaches, and wine farms.",
+    "heroImageUrl": "/images/cities/cape-town.jpg",
+    "guides": [
+      {
+        "title": "Essential Cape Town Travel Guide",
+        "slug": "cape-town-essential-guide",
+        "summary": "A complete introduction for first-time visitors.",
+        "content": "Full guide content coming soon...",
+        "isPremium": false
+      },
+      {
+        "title": "Cape Town 3-Day Premium Itinerary",
+        "slug": "cape-town-3-day-itinerary",
+        "summary": "A detailed multi-day itinerary with local tips.",
+        "content": "Premium itinerary content coming soon...",
+        "isPremium": true
+      }
+    ],
+    "attractions": [
+      {
+        "name": "City Landmark",
+        "description": "One of the most popular attractions in the city.",
+        "category": "CULTURE"
+      },
+      {
+        "name": "Local Food Market",
+        "description": "A great place to experience local cuisine.",
+        "category": "FOOD"
+      }
+    ]
+  },
+  {
+    "name": "Johannesburg",
+    "slug": "johannesburg",
+    "province": "GAUTENG",
+    "description": "South Africa’s largest city and economic hub.",
+    "heroImageUrl": "/images/cities/johannesburg.jpg",
+    "guides": [
+      {
+        "title": "Essential Johannesburg Travel Guide",
+        "slug": "johannesburg-essential-guide",
+        "summary": "A complete introduction for first-time visitors.",
+        "content": "Full guide content coming soon...",
+        "isPremium": false
+      },
+      {
+        "title": "Johannesburg 3-Day Premium Itinerary",
+        "slug": "johannesburg-3-day-itinerary",
+        "summary": "A detailed multi-day itinerary with local tips.",
+        "content": "Premium itinerary content coming soon...",
+        "isPremium": true
+      }
+    ],
+    "attractions": [
+      {
+        "name": "City Landmark",
+        "description": "One of the most popular attractions in the city.",
+        "category": "CULTURE"
+      },
+      {
+        "name": "Local Food Market",
+        "description": "A great place to experience local cuisine.",
+        "category": "FOOD"
+      }
+    ]
+  },
+  {
+    "name": "Durban",
+    "slug": "durban",
+    "province": "KWAZULU_NATAL",
+    "description": "A warm coastal city famous for beaches and culture.",
+    "heroImageUrl": "/images/cities/durban.jpg",
+    "guides": [
+      {
+        "title": "Essential Durban Travel Guide",
+        "slug": "durban-essential-guide",
+        "summary": "A complete introduction for first-time visitors.",
+        "content": "Full guide content coming soon...",
+        "isPremium": false
+      },
+      {
+        "title": "Durban 3-Day Premium Itinerary",
+        "slug": "durban-3-day-itinerary",
+        "summary": "A detailed multi-day itinerary with local tips.",
+        "content": "Premium itinerary content coming soon...",
+        "isPremium": true
+      }
+    ],
+    "attractions": [
+      {
+        "name": "City Landmark",
+        "description": "One of the most popular attractions in the city.",
+        "category": "CULTURE"
+      },
+      {
+        "name": "Local Food Market",
+        "description": "A great place to experience local cuisine.",
+        "category": "FOOD"
+      }
+    ]
+  }
+]
