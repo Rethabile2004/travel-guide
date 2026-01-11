@@ -7,3 +7,5 @@ const CheckOutSuccessPage = (props: Props) => {
     <div>CheckOutSuccessPage</div>
   )
 }
+
+export default CheckOutSuccessPage
