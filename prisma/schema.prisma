@@ -1,0 +1,184 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+//////////////////////////
+// USER
+//////////////////////////
+model User {
+  id          String  @id @default(cuid())
+  clerkUserId String  @unique
+  email       String  @unique
+  name        String?
+  imageUrl    String?
+
+  favorites Favorite[]
+  trips     Trip[]
+  reviews   Review[]
+  purchases Purchase[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+//////////////////////////
+// CITY
+//////////////////////////
+model City {
+  id           String      @id @default(cuid())
+  name         String
+  slug         String      @unique
+  province     Province
+  description  String
+  heroImageUrl String
+  gallery      CityImage[]
+
+  guides      Guide[]
+  attractions Attraction[]
+  reviews     Review[]
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  favorites Favorite[]
+}
+
+//////////////////////////
+// CITY IMAGES
+//////////////////////////
+model CityImage {
+  id       String @id @default(cuid())
+  cityId   String
+  imageUrl String
+
+  city City @relation(fields: [cityId], references: [id], onDelete: Cascade)
+}
+
+//////////////////////////
+// GUIDE
+//////////////////////////
+model Guide {
+  id        String  @id @default(cuid())
+  cityId    String
+  title     String
+  slug      String  @unique
+  summary   String
+  content   String // markdown or rich text
+  isPremium Boolean @default(false)
+
+  city      City       @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  purchases Purchase[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+//////////////////////////
+// ATTRACTIONS
+//////////////////////////
+model Attraction {
+  id          String             @id @default(cuid())
+  cityId      String
+  name        String
+  description String
+  category    AttractionCategory
+  imageUrl    String?
+
+  city City @relation(fields: [cityId], references: [id], onDelete: Cascade)
+}
+
+//////////////////////////
+// FAVORITES
+//////////////////////////
+model Favorite {
+  id     String @id @default(cuid())
+  userId String
+  cityId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  city City @relation(fields: [cityId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, cityId])
+}
+
+//////////////////////////
+// TRIPS
+//////////////////////////
+model Trip {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  startDate DateTime
+  endDate   DateTime
+  notes     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+//////////////////////////
+// REVIEWS
+//////////////////////////
+model Review {
+  id      String  @id @default(cuid())
+  userId  String
+  cityId  String
+  rating  Int
+  comment String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  city City @relation(fields: [cityId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+//////////////////////////
+// PURCHASES (FOR FUTURE STRIPE)
+//////////////////////////
+model Purchase {
+  id      String  @id @default(cuid())
+  userId  String
+  guideId String
+  isPaid  Boolean @default(false)
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guide Guide @relation(fields: [guideId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, guideId])
+}
+
+//////////////////////////
+// ENUMS
+//////////////////////////
+enum Province {
+  WESTERN_CAPE
+  GAUTENG
+  KWAZULU_NATAL
+  EASTERN_CAPE
+  FREE_STATE
+  LIMPOPO
+  MPUMALANGA
+  NORTH_WEST
+  NORTHERN_CAPE
+}
+
+enum AttractionCategory {
+  NATURE
+  FOOD
+  CULTURE
+  ADVENTURE
+  SHOPPING
+  NIGHTLIFE
+  HISTORY
+}
