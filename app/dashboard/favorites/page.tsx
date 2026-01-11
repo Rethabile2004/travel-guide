@@ -2,7 +2,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getFavorites } from "@/utils/actions/favorite";
-import { City } from "../generated/prisma/client";
+import { City } from "@/app/generated/prisma/client";
 import FavoriteToggleButton from "@/components/global/FavoriteToggleButton";
 
 export default async function FavoritesPage() {
@@ -31,8 +31,6 @@ export default async function FavoritesPage() {
     </div>
   );
 }
-
-/* ---------------- Components ---------------- */
 
 function CityCard({ city }: { city: City }) {
   return (

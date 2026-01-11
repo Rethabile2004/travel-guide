@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton"
  */
 export default function TravelGuideLoadingSkeleton() {
   return (
-    <div className="space-y-8 p-4 md:p-8">
+    <div className="space-y-8 p-4 md:p-8 mx-auto max-w-7xl px-4 py-12">
       {/* Main City Card Skeleton */}
       <Card className="flex flex-col md:flex-row overflow-hidden">
         {/* Image Placeholder */}

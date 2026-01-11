@@ -54,7 +54,7 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold">
             Start planning your next trip today
           </h2>
-          <Button size="lg" variant="secondary">
+          <Button size="lg" variant="outline">
             Get Started
           </Button>
         </div>

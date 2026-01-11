@@ -1,6 +1,7 @@
 import { CityCard } from "@/components/Destination/CityCard"
 import { getCities } from "@/utils/actions/city"
 import { City } from "../generated/prisma/browser"
+import FavoriteToggleButton from "@/components/global/FavoriteToggleButton"
 
 export default async function DestinationsPage() {
   const cities = await getCities()
@@ -19,7 +20,10 @@ export default async function DestinationsPage() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cities.map((city) => (
-            <CityCard key={city.id} city={city} />
+            
+            <CityCard key={city.id} city={city} >
+              <FavoriteToggleButton cityId={city.id}/>
+            </CityCard>
           ))}
         </div>
       )}

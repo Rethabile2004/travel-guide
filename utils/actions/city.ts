@@ -19,28 +19,38 @@ export async function getCities() {
 }
 
 export async function getCityBySlug(slug: string) {
-  return prisma.city.findUnique({
-    where: { slug },
-    include: {
-      gallery: true,
-      attractions: true,
-      guides: {
-        select: {
-          id: true,
-          title: true,
-          slug: true,
-          summary: true,
-          isPremium: true,
+    return prisma.city.findUnique({
+        where: { slug },
+        include: {
+            gallery: true,
+            attractions: true,
+            guides: {
+                select: {
+                    id: true,
+                    title: true,
+                    slug: true,
+                    summary: true,
+                    isPremium: true,
+                },
+            },
+            reviews: {
+                select: {
+                    id: true,
+                    rating: true,
+                    comment: true,
+                    createdAt: true,
+                },
+            },
         },
-      },
-      reviews: {
-        select: {
-          id: true,
-          rating: true,
-          comment: true,
-          createdAt: true,
-        },
-      },
-    },
-  })
+    })
+}
+
+export const getFavoriteCitiesCount = async () => {
+    const count = await prisma.favorite.groupBy({
+        by: ['userId'],
+        _count: {
+            userId: true
+        }
+    })
+    return count[0]?._count.userId || 0
 }
