@@ -38,7 +38,7 @@ function DashboardNav() {
       <NavItem href="/dashboard" label="Overview" />
       <NavItem href="/dashboard/favorites" label="Favorites" />
       <NavItem href="/dashboard/trips" label="My Trips" />
-      <NavItem href="/profile" label="Profile" />
+      <NavItem href="/dashboard/profile" label="Profile" />
     </>
   );
 }

@@ -1,10 +1,11 @@
 "use server"
 
+import { auth } from "@clerk/nextjs/server"
 import  prisma  from "../db"
 // import { auth } from "@clerk/nextjs/server"
 
 export async function getUserTrips() {
-  const  userId  = 'user-2' //auth()
+  const  {userId}  = await auth()
 
   if (!userId) {
     throw new Error("Unauthorized")
@@ -15,5 +16,8 @@ export async function getUserTrips() {
     orderBy: {
       startDate: "asc",
     },
+    include:{
+      city:true
+    }
   })
 }

@@ -1,10 +1,12 @@
 // import { auth } from "@clerk/nextjs/server";
 
 import { getFavoriteCitiesCount } from "@/utils/actions/city";
+import { getPlannedTripsCount } from "@/utils/actions/trips";
 
 export default async function DashboardPage() {
-  const  userId  ="user-2"// auth();
-const cities=await getFavoriteCitiesCount()
+  const userId = "user-2"// auth();
+  const cities = await getFavoriteCitiesCount()
+  const trips = await getPlannedTripsCount()
   return (
     <section className="space-y-6">
       <header>
@@ -17,7 +19,7 @@ const cities=await getFavoriteCitiesCount()
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <StatCard title="Saved Cities" value={cities.toString()} />
         <StatCard title="Saved Guides" value="—" />
-        <StatCard title="Trips Planned" value="—" />
+        <StatCard title="Trips Planned" value={trips.toString()} />
       </div>
     </section>
   );

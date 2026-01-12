@@ -1,10 +1,11 @@
+import { UserProfile } from '@clerk/nextjs'
 import React from 'react'
 
 type Props = {}
 
 const ProfilePage = (props: Props) => {
   return (
-    <div>ProfilePage</div>
+    <UserProfile/>
   )
 }
 

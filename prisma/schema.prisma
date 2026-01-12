@@ -16,21 +16,6 @@ datasource db {
 //////////////////////////
 // USER
 //////////////////////////
-model User {
-  id          String  @id @default(cuid())
-  clerkUserId String  @unique
-  email       String  @unique
-  name        String?
-  imageUrl    String?
-
-  favorites Favorite[]
-  trips     Trip[]
-  reviews   Review[]
-  purchases Purchase[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
 
 //////////////////////////
 // CITY
@@ -51,6 +36,7 @@ model City {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   favorites Favorite[]
+  trips     Trip[]
 }
 
 //////////////////////////
@@ -104,9 +90,7 @@ model Favorite {
   id     String @id @default(cuid())
   userId String
   cityId String
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  city City @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  city   City   @relation(fields: [cityId], references: [id], onDelete: Cascade)
 
   @@unique([userId, cityId])
 }
@@ -115,44 +99,47 @@ model Favorite {
 // TRIPS
 //////////////////////////
 model Trip {
-  id        String   @id @default(cuid())
-  userId    String
+  id     String @id @default(cuid())
+  userId String
+
   title     String
-  startDate DateTime
-  endDate   DateTime
+  cityId    String
+  startDate DateTime?
+  endDate   DateTime?
   notes     String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  city City @relation(fields: [cityId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 //////////////////////////
 // REVIEWS
 //////////////////////////
 model Review {
-  id      String  @id @default(cuid())
-  userId  String
-  cityId  String
-  rating  Int
-  comment String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  city City @relation(fields: [cityId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
+  id             String   @id @default(cuid())
+  userId         String
+  cityId         String
+  rating         Int
+  comment        String
+  authorName     String
+  authorImageUrl String
+  city           City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
 }
 
 //////////////////////////
 // PURCHASES (FOR FUTURE STRIPE)
 //////////////////////////
 model Purchase {
-  id      String  @id @default(cuid())
-  userId  String
-  guideId String
-  isPaid  Boolean @default(false)
-
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  guide Guide @relation(fields: [guideId], references: [id], onDelete: Cascade)
-
+  id        String   @id @default(cuid())
+  userId    String
+  guideId   String
+  isPaid    Boolean  @default(false)
+  guide     Guide    @relation(fields: [guideId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 
   @@unique([userId, guideId])

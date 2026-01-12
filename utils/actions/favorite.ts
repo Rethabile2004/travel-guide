@@ -34,7 +34,7 @@ export const toggleFavoriteAction = async (prevState: {
             });
         } else {
             await prisma.favorite.create({
-                data: {
+                data: {   
                     cityId: cityId,
                     userId: user
                 },
@@ -69,3 +69,32 @@ export async function getFavorites() {
 
     return favorites;
 }
+
+// export const toggleGuideFavoriteAction = async (prevState: {
+//     guideId: string;
+//     favoriteId: string | null;
+//     pathname: string;
+// }) => {
+//     const user = 'user-2'//await getAuthUser();
+//     const { guideId, favoriteId, pathname } = prevState;
+//     try {
+//         if (favoriteId) {
+//             await prisma.favorite.delete({
+//                 where: {
+//                     id: favoriteId,
+//                 },
+//             });
+//         } else {
+//             await prisma.favorite.create({
+//                 data: {
+//                     cityId: 'cityId',
+//                     userId: user
+//                 },
+//             });
+//         }
+//         revalidatePath(pathname);
+//         return { message: favoriteId ? 'Removed from Faves' : 'Added to Faves' };
+//     } catch (error) {
+//         return { message: error instanceof Error ? error.message : 'There was an error' }
+//     }
+// };

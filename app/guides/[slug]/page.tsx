@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { getGuideBySlug } from "@/utils/actions/guide"
 import { Button } from "@/components/ui/button"
+import FavoriteToggleButton from "@/components/global/FavoriteToggleButton"
 
 type PageProps = {
   params: { slug: string }
@@ -58,6 +59,7 @@ export default async function GuideDetailPage({ params }: PageProps) {
         ) : (
           <article>
             {guide.content}
+            <FavoriteToggleButton cityId="'"/>
           </article>
         )}
       </section>

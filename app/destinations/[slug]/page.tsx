@@ -1,13 +1,16 @@
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import { getCityBySlug } from "@/utils/actions/city"
+import Comment from "@/components/reviews/Comment"
+import CityReviews from "@/components/reviews/CityReviews"
+import SubmitReview from "@/components/reviews/SubmitReview"
 
 type PageProps = {
   params: { slug: string }
 }
 
 export default async function DestinationDetailPage({ params }: PageProps) {
-  const {slug}= await params
+  const { slug } = await params
   const city = await getCityBySlug(slug)
 
   if (!city) {
@@ -15,7 +18,7 @@ export default async function DestinationDetailPage({ params }: PageProps) {
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-12 space-y-16">
+    <main className="mx-auto max-w-7xl px-4 py-12 space-y-12">
       {/* Hero */}
       <section className="grid gap-8 lg:grid-cols-2">
         <div className="relative h-[400px] w-full overflow-hidden rounded-xl">
@@ -101,28 +104,14 @@ export default async function DestinationDetailPage({ params }: PageProps) {
         <h2 className="mb-6 text-2xl font-semibold">Reviews</h2>
 
         {city.reviews.length === 0 ? (
-          <p className="text-muted-foreground">
-            No reviews yet.
-          </p>
+          <>
+            <CityReviews cityId={city.id} />
+            <SubmitReview cityId={city.id} />
+          </>
         ) : (
-          <div className="space-y-4">
-            {city.reviews.map((review) => (
-              <div
-                key={review.id}
-                className="rounded-xl border p-4"
-              >
-                <p className="font-medium">
-                  Rating: {review.rating}/5
-                </p>
-                {review.comment && (
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {review.comment}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+          <CityReviews cityId={city.id} />
+            )
+        }
       </section>
     </main>
   )

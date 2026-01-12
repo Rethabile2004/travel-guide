@@ -14,10 +14,10 @@ type CityCardProps = {
 
 export function CityCard({ city, children }: CityCardProps) {
     return (
-        <div className="relative">
+        <div className="relative rounded-xl border overflow-hidden transition hover:shadow-md group">
             <Link
                 href={`/destinations/${city.slug}`}
-                className="rounded-xl border overflow-hidden transition hover:shadow-md"
+                className=""
             >
                 <div className="relative h-48 w-full">
                     <Image
@@ -35,13 +35,12 @@ export function CityCard({ city, children }: CityCardProps) {
                     </p>
                     <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
                         {city.description}
-                    </p>  <div className='absolute top-7 right-7 z-5'>
-
-
-                    </div>
+                    </p>
                 </div>
             </Link>
-            {children}
+            <div className='absolute top-7 right-7 z-5'>
+                {children}
+            </div>
         </div>
     )
 }

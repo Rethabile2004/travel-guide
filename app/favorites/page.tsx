@@ -55,7 +55,6 @@ function CityCard({ city }: { city: City }) {
         )}
       </Link>
       <div className="relative">
-
       <FavoriteToggleButton cityId={city.id} />
       </div>
     </div>
