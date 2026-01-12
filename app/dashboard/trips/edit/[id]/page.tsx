@@ -16,28 +16,47 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import prisma from "@/utils/db";
-import { createTrip } from "@/utils/actions/trips";
+import { createTrip, editTrip, getUserTripById, getUserTrips } from "@/utils/actions/trips";
 import FormContainer from "@/components/global/FormContainer";
+import TripButton from "@/components/buttons/TripButton";
 
-export default async function CreateTripPage() {
+const formatDateForInput = (date: Date | null | undefined): string => {
+  if (!date) return '';
+  return date.toISOString().split('T')[0];
+};
 
+type Params = {
+  params: {
+    id: string
+  }
+}
+
+export default async function EditTripPage({ params }: Params) {
+    const { id } =await params;
+    
+    const trip = await getUserTripById(id);
     const cities = await prisma.city.findMany({
         orderBy: { name: "asc" },
     });
 
+    if(!trip){
+        // Optional logic here if needed
+    }
+
     return (
         <Card className="max-w-xl">
             <CardHeader>
-                <h1 className="text-xl font-bold">Create Trip</h1>
+                <h1 className="text-xl font-bold">Edit Trip</h1>
                 <p className="text-sm text-muted-foreground">
                     Plan a new trip to one of your favorite cities.
                 </p>
             </CardHeader>
-            <FormContainer action={createTrip}>
+            <FormContainer action={editTrip}>
                 <CardContent className="space-y-4">
-                    <Input name="title" placeholder="Trip title" required />
-                    <Select name="cityId" required>
-                        <SelectTrigger>
+                    <Input name='id' type="hidden" value={id}/>
+                    <Input name="title" placeholder="Trip title" required defaultValue={trip?.title} />
+                    <Select name="cityId" required defaultValue={trip?.cityId}>
+                        <SelectTrigger >
                             <SelectValue placeholder="Select a city" />
                         </SelectTrigger>
                         <SelectContent>
@@ -48,18 +67,27 @@ export default async function CreateTripPage() {
                             ))}
                         </SelectContent>
                     </Select>
+
                     <div className="grid grid-cols-2 gap-4">
-                        <Input type="date" name="startDate" />
-                        <Input type="date" name="endDate" />
+                        <Input
+                            type="date"
+                            name="startDate"
+                            defaultValue={formatDateForInput(trip?.startDate)}
+                        />
+                        <Input
+                            type="date"
+                            name="endDate"
+                            defaultValue={formatDateForInput(trip?.endDate)}
+                        />
                     </div>
+
                     <Textarea
                         name="notes"
                         placeholder="Notes (optional)"
+                        defaultValue={trip?.notes ?? ''} // Use nullish coalescing for cleaner value
                     />
 
-                    <Button type="submit" className="w-full">
-                        Create Trip
-                    </Button>
+                    <TripButton type="edit"/>
                 </CardContent>
             </FormContainer>
         </Card>

@@ -5,6 +5,8 @@ import prisma from "../db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
+import { getAuthUser, renderError, TripSchema, validateWithZodSchema } from "../shema";
+import { Trip } from "@/app/generated/prisma/client";
 
 export async function getUserTrips() {
     const { userId } = await auth();
@@ -21,7 +23,29 @@ export async function getUserTrips() {
     });
 }
 
-export async function createTrip (prev: any, formData: FormData) {
+export async function getUserTripById(tripId: string) {
+    const { userId } = await auth();
+    if (!userId) throw new Error("Unauthorized");
+
+    // Check if tripId is actually present before running the query
+    if (!tripId) {
+        // You can throw an error or handle this case explicitly
+        throw new Error('tripId cannot be null')
+    }
+
+    // Use findFirst instead of findUnique
+    const trip = await prisma.trip.findFirst({
+        where: {
+            id: tripId,
+            userId: userId // Ensure the trip belongs to the authenticated user
+        },
+    });
+    if (!trip) return null;
+    return trip;
+}
+
+
+export async function createTrip(prev: any, formData: FormData) {
     const { userId } = await auth();
     if (!userId) throw new Error("Unauthorized");
 
@@ -45,16 +69,66 @@ export async function createTrip (prev: any, formData: FormData) {
             notes,
         },
     });
-    return {message :'Trip created successfully'}
+    return { message: 'Trip created successfully' }
     redirect('/dashboard/trips')
 }
 
 export const getPlannedTripsCount = async () => {
-    const count = await prisma.favorite.groupBy({
-        by: ['userId'],
-        _count: {
-            userId: true
+    const { userId } = await auth();
+    if (!userId) {
+        throw new Error('Unauthorized: User ID cannot be null');
+    }
+
+    const count = await prisma.trip.count({
+        where: {
+            userId: userId
+        },
+    });
+
+    return count; 
+};
+
+export async function editTrip(prev: any, formData: FormData) {
+    const { userId } = await auth();
+    if (!userId) throw new Error("Unauthorized");
+
+    const id = formData.get("id") as string;
+    const rawData = Object.fromEntries(formData.entries())
+    const validatedData = validateWithZodSchema(TripSchema, rawData)
+
+    try {
+
+        await prisma.trip.update({
+            where: {
+                id,
+                userId
+            },
+            data: {
+                ...validatedData
+            },
+        });
+        return { success: true, message: 'Trip updated successfully' }
+    } catch (error) {
+        return renderError(error)
+    }
+
+}
+
+export async function deleteTrip(prev: any, formData: FormData): Promise<{ message: string, success: boolean }> {
+    const { userId } = await auth();
+    if (!userId) throw new Error("Unauthorized");
+
+    const id = formData.get("id") as string;
+
+    if (!id) {
+        throw new Error("Id is required");
+    }
+
+    await prisma.trip.delete({
+        where: {
+            id
         }
-    })
-    return count[0]?._count.userId || 0
+    });
+    return { success: true, message: 'Trip removed successfully' }
+    redirect('/dashboard/trips')
 }

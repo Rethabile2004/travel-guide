@@ -72,13 +72,14 @@ export const FavoriteSchema = z.object({
 });
 
 export const TripSchema = z.object({
-  id: z.string().cuid().optional(),
-  userId: z.string().cuid({ message: 'User ID is required' }),
-  title: z.string().min(1, { message: 'Trip title must have a value' }),
-  startDate: z.coerce.date({ message: 'Start date must be a valid date' }),
-  endDate: z.coerce.date({ message: 'End date must be a valid date' }),
-  notes: z.string().nullable().optional(),
+  // userId: z.string().cuid({ message: 'User ID is required' }),
+  title: z.string().min(1, { message: 'Title cannot be empty' }),
+  cityId: z.string().cuid({ message: 'City ID is required' }),
+  startDate: z.coerce.date().optional().nullable(),
+  endDate: z.coerce.date().optional().nullable(),
+  notes: z.string().optional().nullable(),
 });
+
 
 export const ReviewSchema = z.object({
   cityId: z.string().cuid({ message: 'City ID must be a valid CUID' }),//
@@ -104,21 +105,21 @@ export type City = z.infer<typeof CitySchema>;
 export type Review = z.infer<typeof ReviewSchema>;
 
 export function validateWithZodSchema<T>(
-    schema: ZodSchema<T>,
-    data: unknown
+  schema: ZodSchema<T>,
+  data: unknown
 ): T {
-    const result = schema.safeParse(data)
+  const result = schema.safeParse(data)
 
-    if (!result.success) {
-        const errors = result.error.issues.map((error) => error.message).join(', ')
-        throw new Error(errors)
-    }
+  if (!result.success) {
+    const errors = result.error.issues.map((error) => error.message).join(', ')
+    throw new Error(errors)
+  }
 
-    return result.data
+  return result.data
 }
 
-export const renderError = (error: unknown): { message: string } => {
-  return { message: error instanceof Error ? error.message : 'there was an error' }
+export const renderError = (error: unknown) => {
+  return { success: false, message: error instanceof Error ? error.message : 'there was an error' }
 }
 
 export const getAuthUser = async () => {
