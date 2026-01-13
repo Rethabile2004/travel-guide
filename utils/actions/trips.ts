@@ -69,8 +69,7 @@ export async function createTrip(prev: any, formData: FormData) {
             notes,
         },
     });
-    return { success:true,message: 'Trip created successfully' }
-    redirect('/dashboard/trips')
+    return { success: true, message: 'Trip created successfully' }
 }
 
 export const getPlannedTripsCount = async () => {
@@ -85,7 +84,7 @@ export const getPlannedTripsCount = async () => {
         },
     });
 
-    return count; 
+    return count;
 };
 
 export async function editTrip(prev: any, formData: FormData) {

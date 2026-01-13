@@ -5,8 +5,8 @@ export default function SignInPage() {
   return (
     <main className="flex min-h-screen items-center justify-center p-4">
       <ClerkLoading>
-        <div className="flex flex-col space-y-4 w-full max-w-[400px]">
-          <Skeleton className="h-[450px] w-full rounded-xl" />
+        <div className="flex flex-col space-y-4 w-full max-w-100">
+          <Skeleton className="h-112.5 w-full rounded-xl" />
         </div>
       </ClerkLoading>
 

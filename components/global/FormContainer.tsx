@@ -13,7 +13,6 @@ const FormContainer = ({ action, children }: { action: (prevState: any, formData
     useEffect(() => {
         if (state.message) {
             toast.success(state.message)
-            
             if (state.message.includes('Trip removed successfully')) {
                 redirect('/dashboard/trips')
             } else if (state.message.includes('Trip updated successfully')) {

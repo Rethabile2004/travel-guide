@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { AuthSkeleton } from "../loading/AuthSkeleton";
 import AuthButtons from "./AuthButtons";
 import { MobileSidebar } from "./MobileSidebar";
+import { ModeToggle } from "./ThemeToggle";
 
 export default async function Navbar() {
   const { userId } = await auth();
@@ -52,6 +53,7 @@ export default async function Navbar() {
           )}
         </nav>
         <div className="flex items-center gap-2">
+          <ModeToggle /> 
           <Suspense fallback={<AuthSkeleton />}>
             <AuthButtons />
           </Suspense>

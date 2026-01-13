@@ -75,15 +75,24 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/terms"
+                  href="/privacy/terms"
                   className="text-muted-foreground hover:text-foreground"
                 >
                   Terms of Service
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="https://github.com/Rethabile2004/travel-guide"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  Github
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
+        
 
         {/* Bottom bar */}
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t pt-6 text-sm text-muted-foreground md:flex-row">

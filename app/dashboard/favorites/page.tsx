@@ -1,12 +1,12 @@
-// import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getFavorites } from "@/utils/actions/favorite";
 import { City } from "@/app/generated/prisma/client";
 import FavoriteToggleButton from "@/components/global/FavoriteToggleButton";
+import { auth } from "@clerk/nextjs/server";
 
 export default async function FavoritesPage() {
-  const userId = 'user-2'//await getAuthUser();
+  const { userId } = await auth();
 
   const favorites = await getFavorites();
 
@@ -36,7 +36,7 @@ function CityCard({ city }: { city: City }) {
   return (
     <div className="flex gap-x-5 group rounded-lg border p-5 transition hover:border-foreground">
       <Link
-        href={`/citys/${city.slug}`}        
+        href={`/citys/${city.slug}`}
       >
         <div className="mb-1 text-sm text-muted-foreground">
           {city.province}
@@ -54,7 +54,7 @@ function CityCard({ city }: { city: City }) {
       </Link>
       <div className="relative">
 
-      <FavoriteToggleButton cityId={city.id} />
+        <FavoriteToggleButton cityId={city.id} />
       </div>
     </div>
   );

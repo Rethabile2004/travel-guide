@@ -15,9 +15,9 @@ export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
       {pending ? (
         <TfiReload className='animate-spin' />
       ) : isFavorite ? (
-        <FaHeart />
+        <FaHeart className="hover:rotate-2"/>
       ) : (
-        <FaRegHeart />
+        <FaRegHeart className="hover:rotate-2"/>
       )}
     </Button>
   );

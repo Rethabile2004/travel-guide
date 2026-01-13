@@ -4,7 +4,7 @@ export default function LoadingDestinationDetail() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-12 space-y-12">
       <section className="grid gap-8 lg:grid-cols-2">
-        <Skeleton className="h-[400px] w-full rounded-xl" />
+        <Skeleton className="h-100 w-full rounded-xl" />
 
         <div className="flex flex-col justify-center space-y-4">
           <Skeleton className="h-10 w-2/3" /> 
