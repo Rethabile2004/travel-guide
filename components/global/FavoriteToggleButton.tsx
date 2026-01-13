@@ -11,7 +11,7 @@ async function FavoriteToggleButton({ cityId }: { cityId: string }) {
   const favoriteId = await fetchFavoriteId({ cityId })
 
   return (
-    <FavoriteToggleForm favoriteId={favoriteId} cityId={cityId} />
+    <FavoriteToggleForm favoriteId={favoriteId!} cityId={cityId} />
   );
 }
 export default FavoriteToggleButton;

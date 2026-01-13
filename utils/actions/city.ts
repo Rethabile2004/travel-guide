@@ -54,3 +54,13 @@ export const getFavoriteCitiesCount = async () => {
     })
     return count[0]?._count.userId || 0
 }
+
+
+export const getCitiyNames = async () => {
+    const cities=
+    await prisma.city.findMany({
+        orderBy: { name: "asc" },
+    })
+
+    return cities
+}

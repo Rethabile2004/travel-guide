@@ -18,7 +18,6 @@ export default async function DashboardPage() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <StatCard title="Saved Cities" value={cities.toString()} />
-        <StatCard title="Saved Guides" value="—" />
         <StatCard title="Trips Planned" value={trips.toString()} />
       </div>
     </section>

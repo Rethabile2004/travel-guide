@@ -1,63 +1,53 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
-/**
- * A loading skeleton component that mimics the travel guide card layout.
- */
-export default function TravelGuideLoadingSkeleton() {
+export default function LoadingDestinationDetail() {
   return (
-    <div className="space-y-8 p-4 md:p-8 mx-auto max-w-7xl px-4 py-12">
-      {/* Main City Card Skeleton */}
-      <Card className="flex flex-col md:flex-row overflow-hidden">
-        {/* Image Placeholder */}
-        <Skeleton className="h-64 w-full md:w-96 rounded-none" />
+    <main className="mx-auto max-w-7xl px-4 py-12 space-y-12">
+      <section className="grid gap-8 lg:grid-cols-2">
+        <Skeleton className="h-[400px] w-full rounded-xl" />
 
-        {/* Text Content Placeholder */}
-        <div className="flex flex-col p-6 space-y-4">
-          <Skeleton className="h-8 w-64" /> {/* Title */}
-          <Skeleton className="h-4 w-32" /> {/* Subtitle/Region */}
-          <Skeleton className="h-4 w-full max-w-lg" /> {/* Description line 1 */}
-          <Skeleton className="h-4 w-3/4 max-w-lg" /> {/* Description line 2 */}
+        <div className="flex flex-col justify-center space-y-4">
+          <Skeleton className="h-10 w-2/3" /> 
+          <Skeleton className="h-5 w-1/3" /> 
+          <div className="space-y-2 mt-4">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-3/4" />
+          </div>
         </div>
-      </Card>
-
-      {/* Top Attractions Section Header */}
-      <Skeleton className="h-8 w-56 mt-8" />
-
-      {/* Attractions Grid Skeletons */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Attraction Card 1 Placeholder */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              <Skeleton className="h-6 w-48" />
-            </CardTitle>
-            <CardDescription>
+      </section>
+      <section>
+        <Skeleton className="mb-6 h-8 w-48" />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="rounded-xl border p-4 space-y-3">
+              <Skeleton className="h-5 w-1/2" />
               <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-1/2 mt-2" />
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Skeleton className="h-4 w-24" /> {/* Category Tag */}
-          </CardContent>
-        </Card>
+              <Skeleton className="h-3 w-1/4 mt-2" />
+            </div>
+          ))}
+        </div>
+      </section>
 
-        {/* Attraction Card 2 Placeholder */}
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              <Skeleton className="h-6 w-48" />
-            </CardTitle>
-            <CardDescription>
+      <section>
+        <Skeleton className="mb-6 h-8 w-40" /> 
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="rounded-xl border p-4 space-y-3">
+              <Skeleton className="h-5 w-3/4" />
               <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-1/2 mt-2" />
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Skeleton className="h-4 w-24" /> {/* Category Tag */}
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+              <Skeleton className="h-6 w-20 rounded" />
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="space-y-6">
+        <Skeleton className="h-8 w-32" />
+        <div className="space-y-4">
+           <Skeleton className="h-24 w-full rounded-lg" />
+           <Skeleton className="h-24 w-full rounded-lg" />
+        </div>
+      </section>
+    </main>
   )
 }

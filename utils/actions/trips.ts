@@ -69,7 +69,7 @@ export async function createTrip(prev: any, formData: FormData) {
             notes,
         },
     });
-    return { message: 'Trip created successfully' }
+    return { success:true,message: 'Trip created successfully' }
     redirect('/dashboard/trips')
 }
 

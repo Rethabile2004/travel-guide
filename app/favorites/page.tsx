@@ -70,7 +70,7 @@ function EmptyState() {
       </p>
 
       <Link
-        href="/citys"
+        href="/destinations"
         className="mt-6 inline-block rounded-md bg-foreground px-6 py-2 text-sm font-medium text-background"
       >
         Explore Cities

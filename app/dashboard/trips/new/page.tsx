@@ -1,8 +1,16 @@
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+
+
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { DateRange } from "react-day-picker";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
 import {
     Card,
     CardContent,
@@ -15,53 +23,20 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import prisma from "@/utils/db";
-import { createTrip } from "@/utils/actions/trips";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import FormContainer from "@/components/global/FormContainer";
+import { createTrip } from "@/utils/actions/trips";
+import prisma from "@/utils/db";
+import CreateTripForm from "@/components/form/NewTripPage";
+import { City } from "@/utils/shema";
+import { getCitiyNames } from "@/utils/actions/city";
 
 export default async function CreateTripPage() {
 
-    const cities = await prisma.city.findMany({
-        orderBy: { name: "asc" },
-    });
+    const cities = await getCitiyNames()
 
     return (
-        <Card className="max-w-xl">
-            <CardHeader>
-                <h1 className="text-xl font-bold">Create Trip</h1>
-                <p className="text-sm text-muted-foreground">
-                    Plan a new trip to one of your favorite cities.
-                </p>
-            </CardHeader>
-            <FormContainer action={createTrip}>
-                <CardContent className="space-y-4">
-                    <Input name="title" placeholder="Trip title" required />
-                    <Select name="cityId" required>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select a city" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {cities.map((city) => (
-                                <SelectItem key={city.id} value={city.id}>
-                                    {city.name}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <div className="grid grid-cols-2 gap-4">
-                        <Input type="date" name="startDate" />
-                        <Input type="date" name="endDate" />
-                    </div>
-                    <Textarea
-                        name="notes"
-                        placeholder="Notes (optional)"
-                    />
-
-                    <Button type="submit" className="w-full">
-                        Create Trip
-                    </Button>
-                </CardContent>
-            </FormContainer>
-        </Card>
+        <CreateTripForm key='create' cities={cities} />
     );
 }

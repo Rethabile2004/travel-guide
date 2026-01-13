@@ -11,6 +11,7 @@ const isPublicRoute = createRouteMatcher([
   '/guides',
   '/privacy',
   '/contact',
+  '/sign-in(.*)',
   '/terms/privacy',
   '/about',
 ]);// defines all the routes a user who has not logged in can access
