@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import Rating from './Rating';
 import Comment from './Comment';
 import Image from 'next/image';
+import { auth } from '@clerk/nextjs/server';
 
 type ReviewCardProps = {
   reviewInfo: {
@@ -13,7 +14,8 @@ type ReviewCardProps = {
   children?: React.ReactNode;
 };
 
-function ReviewCard({ reviewInfo, children }: ReviewCardProps) {
+async function ReviewCard({ reviewInfo, children }: ReviewCardProps) {
+  const { userId } = await auth()
   return (
     <Card className='relative'>
       <CardHeader>
@@ -29,14 +31,18 @@ function ReviewCard({ reviewInfo, children }: ReviewCardProps) {
             <h3 className='text-sm font-bold capitalize mb-1'>
               {reviewInfo.name}
             </h3>
-            <Rating rating={reviewInfo.rating}  />
+            <Rating rating={reviewInfo.rating} />
           </div>
         </div>
       </CardHeader>
       <CardContent>
         <Comment comment={reviewInfo.comment} />
       </CardContent>
-      <div className='absolute top-3 right-3'>{children}</div>
+      {
+        userId ?
+          <div className='absolute top-3 right-3'>{children}</div>
+          : ''
+      }
     </Card>
   );
 }

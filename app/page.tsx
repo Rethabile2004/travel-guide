@@ -3,6 +3,8 @@ import { MapPin, Star, ArrowRight, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
+import { getForHomePageGuides } from "@/utils/actions/guide";
+import { Guide } from "./generated/prisma/client";
 
 interface Destination {
   id: number;
@@ -13,25 +15,14 @@ interface Destination {
   description: string;
 }
 
-interface Guide {
-  id: number;
-  title: string;
-  isPremium: boolean;
-  author: string;
-  duration: string;
-}
 
 const mockDestinations: Destination[] = [
-  { id: 1, name: "Paris", country: "France", imageUrl: "/profile/demo2.jpg", rating: 4.8, description: "The city of lights and romance. Explore historical landmarks and amazing cuisine." },
-  { id: 2, name: "Kyoto", country: "Japan", imageUrl: "/profile/demo3.jpg", rating: 4.9, description: "Ancient temples, beautiful gardens, and rich cultural experiences await." },
-  { id: 3, name: "New York", country: "USA", imageUrl: "/profile/demo1.jpg", rating: 4.7, description: "The city that never sleeps. Find your adventure from Broadway to Central Park." },
+  { id: 1, name: "Western Cape", country: "ZA", imageUrl: "/profile/demo2.jpg", rating: 4.8, description: "The city of lights and romance. Explore historical landmarks and amazing cuisine." },
+  { id: 2, name: "Gauteng", country: "ZA", imageUrl: "/profile/demo3.jpg", rating: 4.9, description: "Ancient temples, beautiful gardens, and rich cultural experiences await." },
+  { id: 3, name: "Free State", country: "ZA", imageUrl: "/profile/demo1.jpg", rating: 4.7, description: "The city that never sleeps. Find your adventure from Broadway to Central Park." },
 ];
 
-const mockGuides: Guide[] = [
-  { id: 1, title: "Ultimate Paris Foodie Tour", isPremium: true, author: "Jane Doe", duration: "5 days" },
-  { id: 2, title: "Kyoto Temple Hopping Itinerary", isPremium: false, author: "John Smith", duration: "3 days" },
-  { id: 3, title: "NYC on a Budget: Free Activities", isPremium: false, author: "Alex Johnson", duration: "4 days" },
-];
+const mockGuides: Guide[] = await getForHomePageGuides()
 
 const mockTestimonials = [
   { id: 1, quote: "This platform made planning my trip to Japan a breeze! The guides are incredibly detailed and helpful.", name: "Sarah L." },
@@ -144,28 +135,25 @@ function FeaturedDestinationsSection() {
 
 function GuideCard({ guide }: { guide: Guide }) {
   return (
-    <Card className="flex h-full flex-col transition-all hover:border-primary/40">
+    <Card className="flex h-full flex-col transition-all hover:border-primary/40" >
       <CardHeader className="flex-1">
         <CardTitle className="line-clamp-2">{guide.title}</CardTitle>
         <CardDescription>
-          {guide.author} • {guide.duration}
+          {guide.title} • {guide.updatedAt.toDateString()}
         </CardDescription>
       </CardHeader>
-
       <CardContent className="pt-0">
         <div className="flex items-center justify-between">
           <span
-            className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-              guide.isPremium
-                ? "bg-primary/10 text-primary"
-                : "bg-muted text-muted-foreground"
-            }`}
+            className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${guide.isPremium
+              ? "bg-primary/10 text-primary"
+              : "bg-muted text-muted-foreground"
+              }`}
           >
             {guide.isPremium ? "Premium" : "Free"}
           </span>
-
           <Button variant="link" className="px-0" asChild>
-            <Link href={`/guides/${guide.title.toLowerCase().replace(/\s/g, '-')}`}>
+            <Link href={`/guides/${guide.slug}`}>
               Read Guide →
             </Link>
           </Button>

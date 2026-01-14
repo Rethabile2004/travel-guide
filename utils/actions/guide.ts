@@ -1,6 +1,6 @@
 "use server"
 
-import  prisma  from "../db"
+import prisma from "../db"
 
 export async function getGuides() {
   return prisma.guide.findMany({
@@ -24,7 +24,7 @@ export async function getGuides() {
 }
 
 export async function getGuideBySlug(slug: string) {
-    
+
   return prisma.guide.findUnique({
     where: { slug },
     include: {
@@ -36,4 +36,13 @@ export async function getGuideBySlug(slug: string) {
       },
     },
   })
+}
+
+export async function getForHomePageGuides() {
+  const latest = await prisma.guide.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  })
+  return [latest[0], latest[1], latest[2]]
 }

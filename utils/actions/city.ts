@@ -41,7 +41,7 @@ const filterBothByCityAndProvine = (search:string,province: string, cities: City
     return cities;
 }
 
-const searchProvince = (province: string, cities: City[]) => {
+export const searchProvince = (province: string, cities: City[]) => {
     // console.log();
     
     let searchedCities: City[] = [];
@@ -57,7 +57,7 @@ const searchProvince = (province: string, cities: City[]) => {
     return cities;
 }
 
-const searchCity = (search: string, cities: City[]) => {
+export const searchCity = (search: string, cities: City[]) => {
     let searchedCities: City[] = [];
     if (search) {
         searchedCities = cities.filter((c) => {
