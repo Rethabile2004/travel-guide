@@ -13,16 +13,21 @@ export default async function AuthButtons() {
         <div className="flex items-center gap-x-3">
           <Button variant="outline" size="sm" className="hidden sm:flex" asChild>
             <Link href="/dashboard">Dashboard</Link>
-          </Button>          
-          <UserButton afterSignOutUrl="/" />
-          
+          </Button>
+          {process.env.ADMIN_USERID === userId ?
+            <Button variant="default" size="sm" className="hidden sm:flex" asChild>
+              <Link href="/admin">Admin</Link>
+            </Button>
+            : <></>
+          }
+          <UserButton />
         </div>
       ) : (
         <div className="flex items-center gap-x-2">
           <Button size="sm" asChild>
             <Link href="/sign-in">Sign In</Link>
           </Button>
-          
+
           <div className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full bg-muted">
             <UserIcon className="h-4 w-4 text-muted-foreground" />
           </div>

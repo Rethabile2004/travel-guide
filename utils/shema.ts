@@ -32,19 +32,52 @@ export const UserSchema = z.object({
 });
 
 export const CitySchema = z.object({
-  id: z.string().cuid().optional(),
-  name: z.string().min(1, { message: 'City name must have a value' }),
-  slug: z.string().min(1, { message: 'Slug must have a value' }),
-  province: ProvinceSchema,
-  description: z.string().min(10, { message: 'Description must be at least 10 characters' }),
-  heroImageUrl: z.string().url({ message: 'Valid hero image URL is required' }),
+  name: z
+    .string()
+    .min(2, { message: "City name must be at least 2 characters long." })
+    .max(50, { message: "City name cannot exceed 50 characters." }),
+
+  slug: z
+    .string()
+    .min(1, { message: "A unique URL slug is required." })
+    .regex(/^[a-z0-t-]+$/, {
+      message: "Slug can only contain lowercase letters, numbers, and hyphens."
+    }),
+  description: z
+    .string()
+    .min(10, { message: "Description must be at least 10 characters long." })
+    .max(500, { message: "Description is too long (max 500 characters)." }),
 });
+
 
 export const CityImageSchema = z.object({
   id: z.string().cuid().optional(),
   cityId: z.string().cuid({ message: 'Valid City ID is required' }),
   imageUrl: z.string().url({ message: 'Valid image URL is required' }),
 });
+
+
+const validateImageFile = () => {
+  const maxUploadSize = 1024 * 1024 * 2 // 1MB in bytes
+  const acceptedFileTypes = ['image/']
+
+  return z
+    .instanceof(File)
+    .refine(
+      (file) => file.size <= maxUploadSize,
+      { message: 'File size must be less than 1MB' }
+    )
+    .refine(
+      (file) =>
+        acceptedFileTypes.some((type) =>
+          file.type.startsWith(type)
+        ),
+      { message: 'File must be an image' }
+    )
+}
+export const imageSchema = z.object({
+  image: validateImageFile(),
+})
 
 export const GuideSchema = z.object({
   id: z.string().cuid().optional(),

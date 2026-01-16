@@ -2,13 +2,15 @@
 
 import { City } from "@/app/generated/prisma/client";
 import prisma from "../db"
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export async function getCities(search?: string, province?: string) {
     try {
         const cities = await prisma.city.findMany({
             orderBy: { name: 'asc' },
         });
-        if(search&&province){
+        if (search && province) {
 
         }
         if (search) {
@@ -26,7 +28,7 @@ export async function getCities(search?: string, province?: string) {
     }
 }
 
-const filterBothByCityAndProvine = (search:string,province: string, cities: City[]) => {
+const filterBothByCityAndProvine = (search: string, province: string, cities: City[]) => {
     let searchedCities: City[] = [];
     if (province) {
         searchedCities = cities.filter((c) => {
@@ -43,7 +45,7 @@ const filterBothByCityAndProvine = (search:string,province: string, cities: City
 
 const searchProvince = (province: string, cities: City[]) => {
     // console.log();
-    
+
     let searchedCities: City[] = [];
     if (province) {
         searchedCities = cities.filter((c) => {
@@ -102,8 +104,15 @@ export async function getCityBySlug(slug: string) {
 }
 
 export const getFavoriteCitiesCount = async () => {
+    const { userId } = await auth()
+    if (!userId) {
+        redirect('/')
+    }
     const count = await prisma.favorite.groupBy({
         by: ['userId'],
+        where: {
+            userId
+        },
         _count: {
             userId: true
         }

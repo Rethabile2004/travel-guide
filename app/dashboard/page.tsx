@@ -5,7 +5,6 @@ import { getDashboardActivityData } from "@/utils/actions/dashboard";
 import { getPlannedTripsCount } from "@/utils/actions/trips";
 
 export default async function DashboardPage() {
-  const userId = "user-2"// auth();
   const cities = await getFavoriteCitiesCount()
   const {lastActivityDate}=await getDashboardActivityData()
   const trips = await getPlannedTripsCount()

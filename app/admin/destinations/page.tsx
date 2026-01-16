@@ -1,38 +1,36 @@
-import { getCities } from "@/utils/actions/city"; 
+import { getCities } from "@/utils/actions/city";
 import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2, MapPin, Link as LinkIcon, Image as ImageIcon, FileText, Map, Star } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { getForAdminCities } from "@/utils/actions/admin/destinations";
 
-type City = {
-  id: string;
-  name: string;
-  province: string;
-};
-
-export default async function DestinationsPage() {
-  const destinations: City[] = await getCities();
+export default async function AdminDestinationsPage() {
+  // Ensure getCities includes counts for guides, attractions, and reviews in your Prisma query
+  const destinations = await getForAdminCities();
 
   const deleteDestination = async (id: string) => {
     "use server";
-    console.log(`Attempting to delete destination with ID: ${id}`);
+    console.log(`Deleting: ${id}`);
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Manage Destinations</h1>
+        <div>
+          <h1 className="text-3xl font-bold">Admin: Destinations</h1>
+          <p className="text-muted-foreground">Manage city details, gallery, and metadata.</p>
+        </div>
         <Button asChild>
-            <Link href="/admin/destinations/new">Add New Destination</Link>
+          <Link href="/admin/destinations/new">Add New Destination</Link>
         </Button>
       </div>
 
@@ -40,55 +38,97 @@ export default async function DestinationsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Destination List ({destinations.length})</CardTitle>
-          <CardDescription>Click on a row to view details, or use buttons to edit/remove.</CardDescription>
+          <CardTitle>Inventory ({destinations.length})</CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Province</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {destinations.map((destination) => (
-                <TableRow 
-                    key={destination.id} 
-                    className="cursor-pointer hover:bg-muted/50 transition-colors"
-                >
-                  <TableCell className="font-medium">
-                    <Link href={`/admin/destinations/${destination.id}/edit`} className="block w-full h-full p-2 -m-2">
-                        {destination.name}
-                    </Link>
-                  </TableCell>
-                  <TableCell>
-                    <Link href={`/admin/destinations/${destination.id}/edit`} className="block w-full h-full p-2 -m-2">
-                        {destination.province}
-                    </Link>
-                  </TableCell>
-                  <TableCell className="text-right flex justify-end gap-3">
-                    {/* Explicit Edit Button */}
-                    <Button variant="outline" size="sm" asChild>
-                      <Link href={`/admin/destinations/${destination.id}/edit`}>
-                        <Edit className="h-4 w-4 mr-1" />
-                        Edit
-                      </Link>
-                    </Button>
+          <Accordion type="single" collapsible className="w-full">
+            {destinations.map((city) => (
+              <AccordionItem key={city.id} value={city.id} className="border px-4 rounded-lg mb-2">
+                <AccordionTrigger className="hover:no-underline">
+                  <div className="flex items-center gap-4 text-left">
+                    <div className="h-10 w-10 rounded-md overflow-hidden bg-muted">
+                        <img 
+                          src={city.heroImageUrl} 
+                          alt={city.name} 
+                          className="object-cover h-full w-full"
+                        />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <p className="font-bold leading-none">{city.name}</p>
+                        <Badge variant="secondary" className="text-[10px] uppercase">
+                          {city.province.replace('_', ' ')}
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                        <LinkIcon className="h-3 w-3" /> /{city.slug}
+                      </p>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+
+                <AccordionContent className="pt-4 pb-2 border-t">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     
-                    {/* Delete Button (using a form for server action) */}
-                    <form action={deleteDestination.bind(null, destination.id)}>
-                      <Button variant="destructive" size="sm">
-                        <Trash2 className="h-4 w-4 mr-1" />
-                        Remove
-                      </Button>
-                    </form>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                    {/* Column 1: Description & Meta */}
+                    <div className="md:col-span-2 space-y-4">
+                      <div>
+                        <h4 className="text-sm font-semibold flex items-center gap-2 mb-1">
+                          <FileText className="h-4 w-4" /> Description
+                        </h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {city.description || "No description provided."}
+                        </p>
+                      </div>
+                      
+                      <div className="flex gap-4">
+                        <div className="text-center p-3 bg-muted/50 rounded-lg flex-1">
+                          <p className="text-xl font-bold">{city.guides?.length || 0}</p>
+                          <p className="text-[10px] uppercase text-muted-foreground">Guides</p>
+                        </div>
+                        <div className="text-center p-3 bg-muted/50 rounded-lg flex-1">
+                          <p className="text-xl font-bold">{city.attractions?.length || 0}</p>
+                          <p className="text-[10px] uppercase text-muted-foreground">Attractions</p>
+                        </div>
+                        <div className="text-center p-3 bg-muted/50 rounded-lg flex-1">
+                          <p className="text-xl font-bold">{city.reviews?.length || 0}</p>
+                          <p className="text-[10px] uppercase text-muted-foreground">Reviews</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Column 2: Quick Actions & Media Info */}
+                    <div className="space-y-4 bg-muted/30 p-4 rounded-lg">
+                      <div>
+                        <p className="text-xs font-medium text-muted-foreground mb-2">DATABASE INFO</p>
+                        <p className="text-[10px] font-mono break-all bg-background p-1 rounded border">
+                          ID: {city.id}
+                        </p>
+                        <p className="text-[10px] mt-2 text-muted-foreground">
+                          Created: {new Date(city.createdAt).toLocaleDateString()}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                        <Button variant="outline" size="sm" asChild className="w-full justify-start">
+                          <Link href={`/admin/destinations/${city.id}/edit`}>
+                            <Edit className="h-4 w-4 mr-2" /> Edit Details
+                          </Link>
+                        </Button>
+                        
+                        <form action={deleteDestination.bind(null, city.id)} className="w-full">
+                          <Button variant="destructive" size="sm" className="w-full justify-start">
+                            <Trash2 className="h-4 w-4 mr-2" /> Delete City
+                          </Button>
+                        </form>
+                      </div>
+                    </div>
+
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </CardContent>
       </Card>
     </div>
