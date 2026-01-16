@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import ImageInput from "@/components/form/ImageInput";
 import { Plus } from "lucide-react";
+import SubmitButton from "@/components/buttons/SubmitButton";
 
 export default function CreateCityForm() {
   // Use IDs for the dynamic fields to avoid index-shuffling issues
@@ -27,7 +28,7 @@ export default function CreateCityForm() {
               <TabsTrigger value="media">3. Media</TabsTrigger>
             </TabsList>
             {/* The Submit button is inside the form, so it works from any tab */}
-            <Button type="submit">Publish Destination</Button>
+            <SubmitButton title="Public Destination"/>
           </div>
 
           {/* TAB 1: BASIC DETAILS */}
@@ -92,9 +93,9 @@ export default function CreateCityForm() {
                   </CardContent>
                 </Card>
               ))}
-              <Button 
-                type="button" 
-                variant="outline" 
+              <Button
+                type="button"
+                variant="outline"
                 className="w-full border-dashed"
                 onClick={() => setAttractions([...attractions, attractions.length])}
               >

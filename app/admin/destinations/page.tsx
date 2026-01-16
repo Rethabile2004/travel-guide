@@ -11,22 +11,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getForAdminCities } from "@/utils/actions/admin/destinations";
+import { deleteDestination, getForAdminCities } from "@/utils/actions/admin/destinations";
+import AddGuideDialog from "@/components/admin/guide/AddGuide";
 
 export default async function AdminDestinationsPage() {
-  // Ensure getCities includes counts for guides, attractions, and reviews in your Prisma query
   const destinations = await getForAdminCities();
-
-  const deleteDestination = async (id: string) => {
-    "use server";
-    console.log(`Deleting: ${id}`);
-  };
-
   return (
     <div className="space-y-6 p-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Admin: Destinations</h1>
+          <h1 className="text-3xl font-bold">Destinations</h1>
           <p className="text-muted-foreground">Manage city details, gallery, and metadata.</p>
         </div>
         <Button asChild>
@@ -47,11 +41,11 @@ export default async function AdminDestinationsPage() {
                 <AccordionTrigger className="hover:no-underline">
                   <div className="flex items-center gap-4 text-left">
                     <div className="h-10 w-10 rounded-md overflow-hidden bg-muted">
-                        <img 
-                          src={city.heroImageUrl} 
-                          alt={city.name} 
-                          className="object-cover h-full w-full"
-                        />
+                      <img
+                        src={city.heroImageUrl}
+                        alt={city.name}
+                        className="object-cover h-full w-full"
+                      />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
@@ -69,7 +63,7 @@ export default async function AdminDestinationsPage() {
 
                 <AccordionContent className="pt-4 pb-2 border-t">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    
+
                     {/* Column 1: Description & Meta */}
                     <div className="md:col-span-2 space-y-4">
                       <div>
@@ -80,7 +74,7 @@ export default async function AdminDestinationsPage() {
                           {city.description || "No description provided."}
                         </p>
                       </div>
-                      
+
                       <div className="flex gap-4">
                         <div className="text-center p-3 bg-muted/50 rounded-lg flex-1">
                           <p className="text-xl font-bold">{city.guides?.length || 0}</p>
@@ -115,12 +109,13 @@ export default async function AdminDestinationsPage() {
                             <Edit className="h-4 w-4 mr-2" /> Edit Details
                           </Link>
                         </Button>
-                        
+
                         <form action={deleteDestination.bind(null, city.id)} className="w-full">
                           <Button variant="destructive" size="sm" className="w-full justify-start">
                             <Trash2 className="h-4 w-4 mr-2" /> Delete City
                           </Button>
                         </form>
+                        <AddGuideDialog cityId={city.id} cityName={city.name} />
                       </div>
                     </div>
 

@@ -28,7 +28,7 @@ export default async function Navbar() {
 
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
-            if (!userId && link.label === "Favorites") return null;
+            if (!userId && link.label === "Favorites") return null; 
 
             return (
               <Link

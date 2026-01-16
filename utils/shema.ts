@@ -80,8 +80,6 @@ export const imageSchema = z.object({
 })
 
 export const GuideSchema = z.object({
-  id: z.string().cuid().optional(),
-  cityId: z.string().cuid({ message: 'Valid City ID is required' }),
   title: z.string().min(1, { message: 'Guide title must have a value' }),
   slug: z.string().min(1, { message: 'Slug must have a value' }),
   summary: z.string().min(1, { message: 'Summary must have a value' }),

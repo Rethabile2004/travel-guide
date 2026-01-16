@@ -12,12 +12,21 @@ const FormContainer = ({ action, children }: { action: (prevState: any, formData
     const [state, formAction] = useActionState(action, initialState)
     useEffect(() => {
         if (state.message) {
+            if (state.message === 'Guide added successfully') {
+                toast("Guide has been created", {
+                    description: Date.now().toLocaleString(),
+                    action: {
+                        label: "Close",
+                        onClick: () => { },
+                    },
+                })
+                redirect('/destinations')
+            }
             toast.success(state.message)
             if (state.message.includes('Trip removed successfully')) {
                 redirect('/dashboard/trips')
             } else if (state.message.includes('Trip updated successfully')) {
                 redirect('/dashboard/trips')
-
             }
         }
     }, [state])
