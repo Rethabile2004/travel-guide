@@ -1,9 +1,13 @@
-import React from 'react'
+import {  getCityByid } from "@/utils/actions/admin/destinations";
+import EditCityForm from "./EditCityForm";
 
-const EditDestinationPage = () => {
+export default async function EditCity({ params }: { params: { id: string } }) {
+  const { id } = await params
+  const city = await getCityByid(id);
+  if(!city){
+    return
+  }
   return (
-    <div>EditDestinationPage</div>
-  )
+    <EditCityForm id={id} city={city} key='edit_city'/>
+  );
 }
-
-export default EditDestinationPage

@@ -12,6 +12,10 @@ import { Edit, Trash2, Calendar } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+// import GuideFilter from "@/components/admin/guide/GuideFilter";
+// import { getForAdminGuides } from "@/utils/actions/admin/guides";
+import GuideFilter from "@/components/admin/guide/GuideFilter";
+import UpdateGuideDialog from "./[id]/edit/page";
 
 type Guide = {
     id: string;
@@ -19,21 +23,24 @@ type Guide = {
     createdAt: Date;
 };
 
-export default async function GuidesPage() {
-    const guides: Guide[] = await getForAdminGuides();
-
-    const deleteGuide = async (id: string) => {
-        "use server";
-        console.log(`Attempting to delete guide with ID: ${id}`);
-    };
+export default async function GuidesPage({
+    searchParams
+}: {
+    searchParams: Promise<{ province?: string }>
+}) {
+    const filters = await searchParams;
+    const guides = await getForAdminGuides(filters.province);
 
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold">Manage Guides</h1>
-                <Button asChild>
-                    <Link href="/admin/guides/new">Create New Guide</Link>
-                </Button>
+                <div className="flex gap-4">
+                    <GuideFilter />
+                    {/* <Button asChild>
+                        <Link href="/admin/guides/new">Create New Guide</Link>
+                    </Button> */}
+                </div>
             </div>
 
             <Separator />
@@ -76,13 +83,12 @@ export default async function GuidesPage() {
                                                 Edit
                                             </Link>
                                         </Button>
-
-                                        <form action={deleteGuide.bind(null, guide.id)}>
-                                            <Button variant="destructive" size="sm">
-                                                <Trash2 className="h-4 w-4 mr-1" />
-                                                Remove
-                                            </Button>
-                                        </form>
+                                            <form action={'deleteGuide.bind(null, guide.id)'}>
+                                                <Button variant="destructive" size="sm">
+                                                    <Trash2 className="h-4 w-4 mr-1" />
+                                                    Remove
+                                                </Button>
+                                            </form>
                                     </TableCell>
                                 </TableRow>
                             ))}

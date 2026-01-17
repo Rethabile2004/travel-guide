@@ -111,7 +111,8 @@ model Trip {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  city City @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  city       City    @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  isArchived Boolean @default(false)
 
   @@index([userId])
 }

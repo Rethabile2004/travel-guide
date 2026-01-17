@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/accordion";
 import { deleteDestination, getForAdminCities } from "@/utils/actions/admin/destinations";
 import AddGuideDialog from "@/components/admin/guide/AddGuide";
+import FormContainer from "@/components/global/FormContainer";
+import { Input } from "@/components/ui/input";
 
 export default async function AdminDestinationsPage() {
   const destinations = await getForAdminCities();
@@ -110,11 +112,12 @@ export default async function AdminDestinationsPage() {
                           </Link>
                         </Button>
 
-                        <form action={deleteDestination.bind(null, city.id)} className="w-full">
+                        <FormContainer action={deleteDestination}>
+                          <Input type="hidden" value={city.id} name='id' />
                           <Button variant="destructive" size="sm" className="w-full justify-start">
                             <Trash2 className="h-4 w-4 mr-2" /> Delete City
                           </Button>
-                        </form>
+                        </FormContainer>
                         <AddGuideDialog cityId={city.id} cityName={city.name} />
                       </div>
                     </div>

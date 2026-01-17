@@ -4,15 +4,39 @@ import prisma from "@/utils/db"
 import { GuideSchema, renderError, validateWithZodSchema } from "@/utils/shema";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { Province } from "@/app/generated/prisma/client";
 
-export async function getForAdminGuides() {
+export async function getForAdminGuides(province?: string) {
+    const provinceFilter = province && province !== "all"
+        ? { city: { province: province as Province } }
+        : {};
+
     const guides = await prisma.guide.findMany({
+        where: provinceFilter,
+        include: {
+            city: {
+                select: {
+                    name: true,
+                    province: true
+                }
+            }
+        },
         orderBy: {
             createdAt: "desc",
+        },
+    });
+    return guides;
+}
+
+export async function getForAdminGuidesById( slug: string) {
+    const guides = await prisma.guide.findFirst({
+        where: {
+            slug
         },
     })
     return guides
 }
+
 /**
  * Creates a new guide for a specific city.
  * @param cityId The ID of the city the guide belongs to.
