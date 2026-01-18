@@ -1,4 +1,4 @@
-import { getForAdminGuides } from "@/utils/actions/admin/guides";
+import { getForAdminGuides, removeGuide } from "@/utils/actions/admin/guides";
 import { Button } from "@/components/ui/button";
 import {
     Table,
@@ -16,6 +16,8 @@ import { Separator } from "@/components/ui/separator";
 // import { getForAdminGuides } from "@/utils/actions/admin/guides";
 import GuideFilter from "@/components/admin/guide/GuideFilter";
 import UpdateGuideDialog from "./[id]/edit/page";
+import FormContainer from "@/components/global/FormContainer";
+import DeleteButton from "@/components/buttons/DeleteButton";
 
 type Guide = {
     id: string;
@@ -83,12 +85,10 @@ export default async function GuidesPage({
                                                 Edit
                                             </Link>
                                         </Button>
-                                            <form action={'deleteGuide.bind(null, guide.id)'}>
-                                                <Button variant="destructive" size="sm">
-                                                    <Trash2 className="h-4 w-4 mr-1" />
-                                                    Remove
-                                                </Button>
-                                            </form>
+                                        <FormContainer action={removeGuide}>
+                                            <input type="hidden" value={guide.id} name='id' />
+                                            <DeleteButton />
+                                        </FormContainer>
                                     </TableCell>
                                 </TableRow>
                             ))}

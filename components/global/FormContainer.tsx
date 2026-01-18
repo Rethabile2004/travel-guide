@@ -20,7 +20,17 @@ const FormContainer = ({ action, children }: { action: (prevState: any, formData
                         onClick: () => { },
                     },
                 })
-                redirect('/destinations')
+                redirect('/admin/destinations')
+            }
+            if (state.message === 'Guide updated successfully') {
+                toast("Guide has been updated successfully", {
+                    description: Date.now().toLocaleString(),
+                    action: {
+                        label: "Close",
+                        onClick: () => { },
+                    },
+                })
+                redirect('/admin/guides')
             }
             toast.success(state.message)
             if (state.message.includes('Trip removed successfully')) {

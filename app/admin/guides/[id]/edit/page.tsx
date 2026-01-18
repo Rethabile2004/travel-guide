@@ -14,21 +14,26 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { createGuide, getForAdminGuidesById } from "@/utils/actions/admin/guides";
+import { createGuide, getForAdminGuidesById, updateGuide } from "@/utils/actions/admin/guides";
 import FormContainer from "@/components/global/FormContainer";
 import SubmitButton from "@/components/buttons/SubmitButton";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
+import NotFoundPage from "@/app/not-found/page";
 
 interface UpdateGuideDialogProps {
-  cityId: string;
   slug: string;
-  params: { slug: string }
+  params: { id: string }
 }
 
-export default async function UpdateGuideDialog({ cityId, params }: UpdateGuideDialogProps) {
-  const { slug } = await params
-  const existingGuide = await getForAdminGuidesById( slug)
+export default async function UpdateGuideDialog({ params }: UpdateGuideDialogProps) {
+  const { id } = await params
+  const existingGuide = await getForAdminGuidesById(id)
+  if(!existingGuide){
+    return NotFoundPage()
+  }
+  console.log(existingGuide.cityId);
+  
 
   if (!existingGuide) {
     toast.error('Guide does not exist')
@@ -37,8 +42,9 @@ export default async function UpdateGuideDialog({ cityId, params }: UpdateGuideD
 
   return (
 
-    < FormContainer action={createGuide} >
-      < Input name='cityId' value={cityId} hidden />
+    < FormContainer action={updateGuide} >
+      < Input name='cityId' value={existingGuide.cityId} hidden />
+      < Input name='id' value={id} hidden />
       <div className="space-y-2">
         <Label htmlFor="title">Title</Label>
         <Input id="title" name="title" required defaultValue={existingGuide.title} />
@@ -66,6 +72,7 @@ export default async function UpdateGuideDialog({ cityId, params }: UpdateGuideD
           Premium Guide
         </Label>
       </div>
+      <SubmitButton title="Update Guide" />
     </FormContainer >
   )
 }

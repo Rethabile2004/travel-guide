@@ -61,7 +61,7 @@ function AdminNav() {
       title: "Actions",
       items: [
         { href: "/admin/destinations/new", label: "Add Destination", icon: PlusCircle },
-        { href: "/admin/guides/new", label: "Create Guide", icon: PlusCircle },
+        // { href: "/admin/guides/new", label: "Create Guide", icon: PlusCircle },
       ]
     }
   ];
