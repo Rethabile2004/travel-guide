@@ -133,35 +133,35 @@ function FeaturedDestinationsSection() {
   );
 }
 
-function GuideCard({ guide }: { guide: Guide }) {
-  return (
-    <Card className="flex h-full flex-col transition-all hover:border-primary/40" >
-      <CardHeader className="flex-1">
-        <CardTitle className="line-clamp-2">{guide.title}</CardTitle>
-        <CardDescription>
-          {guide.title} • {guide.updatedAt.toDateString()}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="pt-0">
-        <div className="flex items-center justify-between">
-          <span
-            className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${guide.isPremium
-              ? "bg-primary/10 text-primary"
-              : "bg-muted text-muted-foreground"
-              }`}
-          >
-            {guide.isPremium ? "Premium" : "Free"}
-          </span>
-          <Button variant="link" className="px-0" asChild>
-            <Link href={`/guides/${guide.slug}`}>
-              Read Guide →
-            </Link>
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
+// function GuideCard({ guide }: { guide: Guide }) {
+//   return (
+//     <Card className="flex h-full flex-col transition-all hover:border-primary/40" >
+//       <CardHeader className="flex-1">
+//         <CardTitle className="line-clamp-2">{guide.title}</CardTitle>
+//         <CardDescription>
+//           {guide.title} • {guide.updatedAt.toDateString()}
+//         </CardDescription>
+//       </CardHeader>
+//       <CardContent className="pt-0">
+//         <div className="flex items-center justify-between">
+//           <span
+//             className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${guide.isPremium
+//               ? "bg-primary/10 text-primary"
+//               : "bg-muted text-muted-foreground"
+//               }`}
+//           >
+//             {guide.isPremium ? "Premium" : "Free"}
+//           </span>
+//           <Button variant="link" className="px-0" asChild>
+//             <Link href={`/guides/${guide.slug}`}>
+//               Read Guide →
+//             </Link>
+//           </Button>
+//         </div>
+//       </CardContent>
+//     </Card>
+//   );
+// }
 
 function PopularGuidesSection() {
   return (
@@ -174,11 +174,11 @@ function PopularGuidesSection() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {/* <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {mockGuides.map((guide) => (
             <GuideCard key={guide.id} guide={guide} />
           ))}
-        </div>
+        </div> */}
       </div>
     </section>
   );

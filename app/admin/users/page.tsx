@@ -43,7 +43,7 @@ export default async function AdminUsersPage() {
                     <Table>
                         <TableHeader>
                             <TableRow className="bg-muted/50">
-                                <TableHead className="w-[80px]">Profile</TableHead>
+                                <TableHead className="w-20">Profile</TableHead>
                                 <TableHead>Full Name</TableHead>
                                 <TableHead>Email Address</TableHead>
                                 <TableHead>Joined Date</TableHead>
