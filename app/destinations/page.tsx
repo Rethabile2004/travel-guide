@@ -1,10 +1,10 @@
 import { getCities } from "@/utils/actions/city";
 import FavoriteToggleButton from "@/components/global/FavoriteToggleButton";
-import Filters from "@/components/destination/Filters";
 import { MapPinOff } from "lucide-react";
 import { provinces } from "@/utils/data";
 import { DestinationsPageProps } from "@/utils/types";
 import { CityCard } from "@/components/destination/CityCard";
+import Filters from "@/components/destination/Filters";
 
 export default async function DestinationsPage({ searchParams }: DestinationsPageProps) {
   const { search, province } = await searchParams
