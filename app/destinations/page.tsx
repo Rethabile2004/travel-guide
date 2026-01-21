@@ -5,6 +5,7 @@ import { provinces } from "@/utils/data";
 import { DestinationsPageProps } from "@/utils/types";
 import { CityCard } from "@/components/destination/CityCard";
 import Filters from "@/components/destination/Filters";
+import SectionTitle from "@/components/global/SectionTitle";
 
 export default async function DestinationsPage({ searchParams }: DestinationsPageProps) {
   const { search, province } = await searchParams
@@ -12,12 +13,7 @@ export default async function DestinationsPage({ searchParams }: DestinationsPag
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-12 h-screen">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Destinations</h1>
-        <p className="text-muted-foreground">
-          Explore cities and start planning your next trip.
-        </p>
-      </div>
+      <SectionTitle desc="Explore cities and start planning your next trip." title="Destinations" />
       <Filters provinces={provinces} />
 
       {cities.length === 0 ? (

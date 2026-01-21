@@ -1,18 +1,13 @@
 import { getGuides } from "@/utils/actions/guide"
 import { GuideCard } from "@/components/guide/GuideCard"
+import SectionTitle from "@/components/global/SectionTitle"
 
 export default async function GuidesPage() {
   const guides = await getGuides()
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-12 space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold">Travel Guides</h1>
-        <p className="text-muted-foreground">
-          Curated guides to help you explore each destination.
-        </p>
-      </div>
-
+      <SectionTitle desc="Curated guides to help you explore each destination." title="Travel Guides" />
       {guides.length === 0 ? (
         <p className="text-muted-foreground">No guides available.</p>
       ) : (
