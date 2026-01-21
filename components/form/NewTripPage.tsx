@@ -14,25 +14,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import FormContainer from "@/components/global/FormContainer";
 import { createTrip, editTrip } from "@/utils/actions/trips";
+import { TripData } from "@/utils/types";
 
-// Define a type for the trip data being passed in
-interface TripData {
-    id: string;
-    title: string;
-    cityId: string;
-    startDate: Date | null;
-    endDate: Date | null;
-    notes: string | null;
-}
-
-export default function CreateTripForm({ cities, trip }: { cities: any[], trip?: TripData }) {
-    // 1. Initialize state with existing trip data if available
+export default function CreateOrEditForm({ cities, trip }: { cities: any[], trip?: TripData }) {
     const [date, setDate] = useState<DateRange | undefined>({
         from: trip?.startDate ? new Date(trip.startDate) : undefined,
         to: trip?.endDate ? new Date(trip.endDate) : undefined,
     });
 
-    // Determine which action to use based on the presence of a trip ID
     const formAction = trip ? editTrip : createTrip;
 
     return (
@@ -43,13 +32,9 @@ export default function CreateTripForm({ cities, trip }: { cities: any[], trip?:
                     {trip ? "Update your trip details." : "Plan a new trip to one of your favorite cities."}
                 </p>
             </CardHeader>
-
             <FormContainer action={formAction}>
                 <CardContent className="space-y-4">
-                    {/* Hidden input for ID (crucial for editing) */}
                     {trip && <input type="hidden" name="id" value={trip.id} />}
-                    
-                    {/* Hidden Inputs for dates */}
                     <input
                         type="hidden"
                         name="startDate"
@@ -81,7 +66,6 @@ export default function CreateTripForm({ cities, trip }: { cities: any[], trip?:
                             </SelectContent>
                         </Select>
                     </div>
-
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Dates</label>
                         <Popover>
@@ -114,12 +98,10 @@ export default function CreateTripForm({ cities, trip }: { cities: any[], trip?:
                             </PopoverContent>
                         </Popover>
                     </div>
-
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Notes</label>
                         <Textarea name="notes" defaultValue={trip?.notes || ""} placeholder="Notes..." className="min-h-25" />
                     </div>
-
                     <Button type="submit" className="w-full">
                         {trip ? "Update Trip" : "Create Trip"}
                     </Button>

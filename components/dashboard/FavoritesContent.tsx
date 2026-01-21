@@ -2,24 +2,7 @@ import { Province } from '@/app/generated/prisma/client'
 import React from 'react'
 import { EmptyState } from './EmptyState'
 import { CityCard } from './CityCard'
-
-type City = {
-    id: string;
-    name: string;
-    slug: string;
-    province: Province;
-    description: string;
-    heroImageUrl: string;
-    createdAt: Date;
-    updatedAt: Date;
-};
-
-type Favorite = {
-    userId: string;
-    id: string;
-    cityId: string;
-    city: City;
-};
+import { Favorite } from '@/utils/types'
 
 const FavoritesContent = ({ favorites }: { favorites: Favorite[] }) => {
     return (
@@ -31,7 +14,7 @@ const FavoritesContent = ({ favorites }: { favorites: Favorite[] }) => {
                 </p>
             </header>
             {favorites.length === 0 ? (
-                <EmptyState />
+                <EmptyState description="Save cities you\'re are interested in and they'll appear here" href='/destinations' text='Explore cities' title='No favorite cities yet' />
             ) : (
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {favorites.map((fav) => (

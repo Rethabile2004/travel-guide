@@ -28,7 +28,7 @@ import { Textarea } from "@/components/ui/textarea";
 import FormContainer from "@/components/global/FormContainer";
 import { createTrip } from "@/utils/actions/trips";
 import prisma from "@/utils/db";
-import CreateTripForm from "@/components/form/NewTripPage";
+import CreateOrEditForm from "@/components/form/NewTripPage";
 import { City } from "@/utils/shema";
 import { getCitiyNames } from "@/utils/actions/city";
 
@@ -37,6 +37,6 @@ export default async function CreateTripPage() {
     const cities = await getCitiyNames()
 
     return (
-        <CreateTripForm key='create' cities={cities} />
+        <CreateOrEditForm key='create' cities={cities} />
     );
 }

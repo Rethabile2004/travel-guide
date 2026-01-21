@@ -1,5 +1,5 @@
 import NotFoundPage from "@/app/not-found/page";
-import CreateTripForm from "@/components/form/NewTripPage";
+import CreateOrEditForm from "@/components/form/NewTripPage";
 import { getCitiyNames } from "@/utils/actions/city";
 import { getUserTripById } from "@/utils/actions/trips";
 import { Params } from "next/dist/server/request/params";
@@ -14,7 +14,7 @@ export default async function EditTripPage({ params }: { params: { id: string } 
     }
 
     return (
-        <CreateTripForm
+        <CreateOrEditForm
         key='edit'
             cities={cities}
             trip={{
