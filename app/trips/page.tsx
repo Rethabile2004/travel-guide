@@ -1,6 +1,6 @@
 import { getUserTrips } from "@/utils/actions/trip"
-import { TripCard } from "@/components/trip/TripCard"
 import SectionTitle from "@/components/global/SectionTitle"
+import TripGrid from "@/components/global/TripGrid"
 
 export default async function TripsPage() {
   const trips = await getUserTrips()
@@ -13,12 +13,10 @@ export default async function TripsPage() {
           You haven’t created any trips yet.
         </p>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2">
-          {trips.map((trip) => (
-            <TripCard key={trip.id} trip={{ id: trip.id, endDate: trip.endDate, notes: trip.notes, startDate: trip.startDate, title: trip.title }} />
-          ))}
-        </div>
+        <TripGrid trips={trips}/>
       )}
     </main>
   )
 }
+
+

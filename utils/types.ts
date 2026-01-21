@@ -71,3 +71,65 @@ export interface Destination {
     rating: number;
     description: string;
 }
+
+export type GuideType = {
+    id: string;
+    title: string;
+    slug: string;
+    summary: string;
+    isPremium: boolean;
+    city: {
+        slug: string;
+        name: string;
+    };
+}
+
+export type CityGridType = {
+    name: string;
+    id: string;
+    slug: string;
+    province: Province;
+    description: string;
+    heroImageUrl: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export type TripGridType = {
+    city: {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        slug: string;
+        province: Province;
+        description: string;
+        heroImageUrl: string;
+    },
+    id: string;
+    userId: string;
+    title: string;
+    cityId: string;
+    startDate: Date | null;
+    endDate: Date | null;
+    notes: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+    isArchived: boolean;
+}
+
+export type FavoriteGridType = {
+    city: {
+        id: string;
+        name: string;
+        slug: string;
+        province: Province;
+        description: string;
+        heroImageUrl: string;
+        createdAt: Date;
+        updatedAt: Date;
+    },
+    id: string;
+    userId: string;
+    cityId: string;
+}

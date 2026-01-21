@@ -1,6 +1,6 @@
 import { getGuides } from "@/utils/actions/guide"
-import { GuideCard } from "@/components/guide/GuideCard"
 import SectionTitle from "@/components/global/SectionTitle"
+import GuideGrid from "@/components/global/GuideGrid"
 
 export default async function GuidesPage() {
   const guides = await getGuides()
@@ -11,11 +11,7 @@ export default async function GuidesPage() {
       {guides.length === 0 ? (
         <p className="text-muted-foreground">No guides available.</p>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {guides.map((guide) => (
-            <GuideCard key={guide.id} guide={guide} />
-          ))}
-        </div>
+        <GuideGrid guides={guides} />
       )}
     </main>
   )

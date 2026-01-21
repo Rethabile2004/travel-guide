@@ -1,11 +1,10 @@
 import { getCities } from "@/utils/actions/city";
-import FavoriteToggleButton from "@/components/global/FavoriteToggleButton";
 import { MapPinOff } from "lucide-react";
 import { provinces } from "@/utils/data";
 import { DestinationsPageProps } from "@/utils/types";
-import { CityCard } from "@/components/destination/CityCard";
 import Filters from "@/components/destination/Filters";
 import SectionTitle from "@/components/global/SectionTitle";
+import CityGrid from "@/components/global/CityGrid";
 
 export default async function DestinationsPage({ searchParams }: DestinationsPageProps) {
   const { search, province } = await searchParams
@@ -25,14 +24,9 @@ export default async function DestinationsPage({ searchParams }: DestinationsPag
         </div>
 
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {cities.map((city) => (
-            <CityCard key={city.id} city={city} >
-              <FavoriteToggleButton cityId={city.id} />
-            </CityCard>
-          ))}
-        </div>
+        <CityGrid cities={cities} />
       )}
     </main>
   );
 }
+
