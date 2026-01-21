@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache"
 import prisma from "../db"
 import { renderError } from "../shema"
 import { auth } from "@clerk/nextjs/server"
+import { Favorite } from "@/app/generated/prisma/client"
 
 const getAuthUser = async () => {
     const { userId } = await auth()

@@ -2,6 +2,7 @@ import { Mail, Phone, Github } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import ContactCard from '@/components/contact/ContactCard';
 
 export default function ContactPage() {
   return (
@@ -17,21 +18,18 @@ export default function ContactPage() {
         <Card className="flex flex-col items-center text-center p-6">
           <Mail className="h-10 w-10 mb-4 text-primary" />
           <CardTitle className="text-lg">Email</CardTitle>
-          <CardContent className="mt-2 p-0">
+          <ContactCard href='mailto:ericksiase375@gmail.com' title='ericksiase375@gmail.com' />
+          {/* <CardContent className="mt-2 p-0">
             <a href="mailto:ericksiase375@gmail.com" className="text-sm text-muted-foreground hover:underline">
               ericksiase375@gmail.com
             </a>
-          </CardContent>
+          </CardContent> */}
         </Card>
 
         <Card className="flex flex-col items-center text-center p-6">
           <Phone className="h-10 w-10 mb-4 text-primary" />
           <CardTitle className="text-lg">Phone</CardTitle>
-          <CardContent className="mt-2 p-0">
-            <a href="tel:+27752626847" className="text-sm text-muted-foreground hover:underline">
-              0752626847
-            </a>
-          </CardContent>
+          <ContactCard href='tel:+27752626847' title='0752626847' />
         </Card>
 
         <Card className="flex flex-col items-center text-center p-6">

@@ -2,6 +2,7 @@ import { Plane, Code, Database, Users } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { aboutData } from '@/utils/data';
 
 export default function AboutPage() {
   return (
@@ -53,14 +54,7 @@ export default function AboutPage() {
       <section className="space-y-6">
         <h2 className="text-3xl font-semibold tracking-tight text-center">Key Features</h2>
         <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { title: 'User Authentication', description: 'Secure user registration, login, and protected routes powered by Clerk.' },
-            { title: 'Dynamic Destination Pages', description: 'Browse, search, and filter destinations with detailed information and user reviews.' },
-            { title: 'Trip Planning', description: 'Authenticated users can create and manage trips with specific dates and notes.' },
-            { title: 'Favorites Management', description: 'Save destinations to favorites for easy access later.' },
-            { title: 'Commerce & Payments', description: 'Handling Stripe checkout sessions for premium travel guides.' },
-            { title: 'Responsive Design', description: 'A fully responsive and accessible UI using Radix UI primitives and Tailwind CSS.' },
-          ].map((feature) => (
+          {aboutData.map((feature) => (
             <Card key={feature.title}>
               <CardHeader>
                 <CardTitle className="text-xl">{feature.title}</CardTitle>
@@ -72,7 +66,6 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-
     </main>
   );
 }
