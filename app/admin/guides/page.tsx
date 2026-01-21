@@ -12,8 +12,6 @@ import { Edit, Trash2, Calendar } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-// import GuideFilter from "@/components/admin/guide/GuideFilter";
-// import { getForAdminGuides } from "@/utils/actions/admin/guides";
 import GuideFilter from "@/components/admin/guide/GuideFilter";
 import UpdateGuideDialog from "./[id]/edit/page";
 import FormContainer from "@/components/global/FormContainer";
@@ -39,9 +37,6 @@ export default async function GuidesPage({
                 <h1 className="text-3xl font-bold">Manage Guides</h1>
                 <div className="flex gap-4">
                     <GuideFilter />
-                    {/* <Button asChild>
-                        <Link href="/admin/guides/new">Create New Guide</Link>
-                    </Button> */}
                 </div>
             </div>
 

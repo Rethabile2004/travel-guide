@@ -1,4 +1,3 @@
-// prisma/data.ts
 import { AttractionCategory, Province } from '@/app/generated/prisma/client'; 
 
 export const SEED_USER_ID = "seed-admin-user-id";

@@ -5,10 +5,7 @@ import CityReviews from "@/components/reviews/CityReviews"
 import SubmitReview from "@/components/reviews/SubmitReview"
 import FavoriteToggleButton from "@/components/global/FavoriteToggleButton"
 import { ShareButton } from "@/components/global/ShareButton"
-
-type PageProps = {
-  params: { slug: string }
-}
+import { PageProps } from '@/utils/types'
 
 export default async function DestinationDetailPage({ params }: PageProps) {
   const { slug } = await params
@@ -30,7 +27,6 @@ export default async function DestinationDetailPage({ params }: PageProps) {
             priority
           />
         </div>
-
         <div className="flex flex-col justify-center">
           <div className="flex justify-between items-center mb-2">
             <h1 className="text-4xl font-bold">{city.name}</h1>
@@ -39,7 +35,6 @@ export default async function DestinationDetailPage({ params }: PageProps) {
               <ShareButton />
             </div>
           </div>
-
           <p className="mt-2 text-muted-foreground">
             {city.province.replace("_", " ")}
           </p>
@@ -80,7 +75,6 @@ export default async function DestinationDetailPage({ params }: PageProps) {
           </div>
         )}
       </section>
-
       <section>
         <h2 className="mb-6 text-2xl font-semibold">Reviews</h2>
         {city.reviews.length === 0 ? (
@@ -92,7 +86,6 @@ export default async function DestinationDetailPage({ params }: PageProps) {
           <CityReviews cityId={city.id} />
         )}
       </section>
-
     </main>
   )
 }

@@ -29,9 +29,7 @@ export default async function AdminDestinationsPage() {
           <Link href="/admin/destinations/new">Add New Destination</Link>
         </Button>
       </div>
-
       <Separator />
-
       <Card>
         <CardHeader>
           <CardTitle>Inventory ({destinations.length})</CardTitle>
@@ -65,8 +63,6 @@ export default async function AdminDestinationsPage() {
 
                 <AccordionContent className="pt-4 pb-2 border-t">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                    {/* Column 1: Description & Meta */}
                     <div className="md:col-span-2 space-y-4">
                       <div>
                         <h4 className="text-sm font-semibold flex items-center gap-2 mb-1">
@@ -92,8 +88,6 @@ export default async function AdminDestinationsPage() {
                         </div>
                       </div>
                     </div>
-
-                    {/* Column 2: Quick Actions & Media Info */}
                     <div className="space-y-4 bg-muted/30 p-4 rounded-lg">
                       <div>
                         <p className="text-xs font-medium text-muted-foreground mb-2">DATABASE INFO</p>

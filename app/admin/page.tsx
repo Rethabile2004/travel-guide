@@ -1,4 +1,3 @@
-// app/admin/page.tsx
 import { fetchDashboardMetrics } from "@/utils/actions/admin/overview";
 import { StatsCard } from "@/components/admin/overview/StatsChart";
 import DashboardChartsClient from "@/components/admin/overview/DashboardChartsClient";
@@ -6,14 +5,12 @@ import { MapPin, BookOpen, Star, Plane } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 
 export default async function AdminDashboardPage() {
-    // Data fetched securely on the server
     const metrics = await fetchDashboardMetrics();
 
     return (
         <div className="p-8">
             <h1 className="text-3xl font-bold mb-8">Admin / Dashboard</h1>
             
-            {/* 1. KPI Grid (Server-rendered static cards) */}
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
                 <StatsCard 
                     title="Total Destinations" 
@@ -36,8 +33,6 @@ export default async function AdminDashboardPage() {
                     icon={Plane} 
                 />
             </div>
-
-            {/* 2. Charts (Passed data to Client Component) */}
             <div className="grid gap-6 lg:grid-cols-2">
                 <DashboardChartsClient chartData={metrics.guidesPerProvinceData} />
                 

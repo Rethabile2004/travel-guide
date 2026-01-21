@@ -20,7 +20,6 @@ export default async function GuideDetailPage({ params }: PageProps) {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-12 space-y-8">
-      {/* Header */}
       <header className="space-y-2">
         <p className="text-sm text-muted-foreground">
           Guide for{" "}
@@ -41,7 +40,6 @@ export default async function GuideDetailPage({ params }: PageProps) {
         )}
       </header>
 
-      {/* Content */}
       <section className="prose prose-neutral max-w-none">
         {isLocked ? (
           <>

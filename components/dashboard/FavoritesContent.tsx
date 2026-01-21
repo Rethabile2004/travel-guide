@@ -14,7 +14,7 @@ const FavoritesContent = ({ favorites }: { favorites: Favorite[] }) => {
                 </p>
             </header>
             {favorites.length === 0 ? (
-                <EmptyState description="Save cities you\'re are interested in and they'll appear here" href='/destinations' text='Explore cities' title='No favorite cities yet' />
+                <EmptyState description="Save cities you're are interested in and they'll appear here" href='/destinations' text='Explore cities' title='No favorite cities yet' />
             ) : (
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {favorites.map((fav) => (

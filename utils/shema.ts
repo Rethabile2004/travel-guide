@@ -58,7 +58,7 @@ export const CityImageSchema = z.object({
 
 
 const validateImageFile = () => {
-  const maxUploadSize = 1024 * 1024 * 2 // 1MB in bytes
+  const maxUploadSize = 1024 * 1024 * 2 // 2MB in bytes
   const acceptedFileTypes = ['image/']
 
   return z

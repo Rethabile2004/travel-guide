@@ -1,5 +1,3 @@
-// app/admin/loading.tsx or components/admin/AdminLoading.tsx
-
 import { Loader2, Zap } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 

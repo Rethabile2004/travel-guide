@@ -1,13 +1,11 @@
 import { getUserTrips } from "@/utils/actions/trip"
-import { TripCard } from "@/components/Trip/TripCard"
-import { CardSignInButton } from "@/components/buttons/CardSignInButton";
-import { auth } from "@clerk/nextjs/server";
+import { TripCard } from "@/components/trip/TripCard"
 
 export default async function TripsPage() {
   const trips = await getUserTrips()
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-12 space-y-8">
+    <main className="mx-auto max-w-5xl px-4 py-12 space-y-8 h-screen">
       <div>
         <h1 className="text-3xl font-bold">My Trips</h1>
         <p className="text-muted-foreground">
@@ -22,12 +20,7 @@ export default async function TripsPage() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2">
           {trips.map((trip) => (
-            //         id: string
-            // title: string
-            // startDate: Date
-            // endDate: Date
-            // notes: string | null
-            <TripCard key={trip.id} trip={{id:trip.id,endDate:trip.endDate,notes:trip.notes,startDate:trip.startDate,title:trip.title}} />
+            <TripCard key={trip.id} trip={{ id: trip.id, endDate: trip.endDate, notes: trip.notes, startDate: trip.startDate, title: trip.title }} />
           ))}
         </div>
       )}

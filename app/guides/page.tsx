@@ -1,5 +1,5 @@
 import { getGuides } from "@/utils/actions/guide"
-import { GuideCard } from "@/components/Guide/GuideCard"
+import { GuideCard } from "@/components/guide/GuideCard"
 
 export default async function GuidesPage() {
   const guides = await getGuides()

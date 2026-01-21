@@ -6,13 +6,12 @@ import { Badge } from "@/components/ui/badge"
 export default function Loading() {
   return (
     <div className="space-y-6 p-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div className="space-y-2">
           <Skeleton className="h-10 w-72" />
           <Skeleton className="h-5 w-96" />
         </div>
-        <Skeleton className="h-10 w-48 rounded-md" /> {/* Add New button */}
+        <Skeleton className="h-10 w-48 rounded-md" /> 
       </div>
 
       <Separator />
@@ -28,23 +27,18 @@ export default function Loading() {
               key={i}
               className="border rounded-lg px-4 py-3 bg-card"
             >
-              {/* Trigger / Preview row */}
               <div className="flex items-center gap-4">
-                {/* Small image placeholder */}
                 <Skeleton className="h-10 w-10 rounded-md" />
 
                 <div className="space-y-2 flex-1">
                   <div className="flex items-center gap-2">
                     <Skeleton className="h-6 w-40" />
-                    <Skeleton className="h-5 w-24 rounded-sm" /> {/* Province badge */}
+                    <Skeleton className="h-5 w-24 rounded-sm" /> 
                   </div>
-                  <Skeleton className="h-4 w-56" /> {/* slug */}
+                  <Skeleton className="h-4 w-56" /> 
                 </div>
               </div>
-
-              {/* Content preview (when expanded) */}
               <div className="pt-5 grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
-                {/* Left column - description + stats */}
                 <div className="md:col-span-2 space-y-5">
                   <div className="space-y-2">
                     <Skeleton className="h-5 w-32" />
@@ -61,8 +55,6 @@ export default function Loading() {
                     ))}
                   </div>
                 </div>
-
-                {/* Right column - actions */}
                 <div className="space-y-4 bg-muted/30 p-4 rounded-lg">
                   <Skeleton className="h-4 w-32" />
                   <Skeleton className="h-5 w-56 font-mono" />

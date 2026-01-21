@@ -49,3 +49,25 @@ export interface TripData {
     endDate: Date | null;
     notes: string | null;
 }
+
+export type SearchParams = {
+    search?: string;
+    province?: string;
+};
+
+export interface DestinationsPageProps {
+    searchParams: SearchParams;
+}
+
+export type PageProps = {
+    params: { slug: string }
+}
+
+export interface Destination {
+    id: number;
+    name: string;
+    country: string;
+    imageUrl: string;
+    rating: number;
+    description: string;
+}

@@ -1,4 +1,3 @@
-// src/utils/links.ts
 export type NavLink = {
     label: string
     href: string

@@ -14,7 +14,6 @@ import { Plus, Trash2 } from "lucide-react";
 import SubmitButton from "@/components/buttons/SubmitButton";
 
 export default function EditCityForm({ id, city }: { id: string; city: any }) {
-  // Initialize state with existing attractions count
   const [attractions, setAttractions] = useState(
     city.attractions.length > 0 
       ? city.attractions.map((_: any, i: number) => i) 
@@ -24,7 +23,6 @@ export default function EditCityForm({ id, city }: { id: string; city: any }) {
   return (
     <div className="max-w-4xl mx-auto py-10">
       <FormContainer action={updateCityAction}>
-        {/* CRITICAL: Hidden ID field for the server action */}
         <input type="hidden" name="id" value={id} />
 
         <Tabs defaultValue="details" className="w-full">
@@ -75,8 +73,6 @@ export default function EditCityForm({ id, city }: { id: string; city: any }) {
               </CardContent>
             </Card>
           </TabsContent>
-
-          {/* TAB 2: ATTRACTIONS */}
           <TabsContent value="attractions" forceMount className="data-[state=inactive]:hidden">
             <div className="space-y-4">
               {attractions.map((item: number, index: number) => {
@@ -116,7 +112,6 @@ export default function EditCityForm({ id, city }: { id: string; city: any }) {
                           required 
                         />
                       </div>
-                      {/* Optional: Add hidden ID for existing attractions to handle updates vs creates */}
                       {existingAttr?.id && (
                          <input type="hidden" name={`attractionId_${index}`} value={existingAttr.id} />
                       )}
@@ -134,8 +129,6 @@ export default function EditCityForm({ id, city }: { id: string; city: any }) {
               </Button>
             </div>
           </TabsContent>
-
-          {/* TAB 3: MEDIA */}
           <TabsContent value="media" forceMount className="data-[state=inactive]:hidden">
             <Card>
               <CardContent className="pt-6 space-y-4">

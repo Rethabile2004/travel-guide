@@ -1,7 +1,5 @@
-// utils/actions/admin/dashboard.ts
 "use server";
 
-// Assuming you have your Prisma client configured in a lib/prisma.ts file
 import prisma from "@/utils/db"; 
 
 export async function fetchDashboardMetrics() {
@@ -15,7 +13,6 @@ export async function fetchDashboardMetrics() {
     totalGuides,
     totalReviews,
     totalTrips,
-    // Example static data for the chart visualization
     guidesPerProvinceData: [
       { name: 'Western Cape', guides: 42 },
       { name: 'Gauteng', guides: 30 },
