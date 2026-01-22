@@ -12,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import ImageInput from "@/components/form/ImageInput";
 import { Plus } from "lucide-react";
 import SubmitButton from "@/components/buttons/SubmitButton";
+import { adminAattractions, adminProvinces } from "@/utils/data";
 
 export default function CreateCityForm() {
   // Use IDs for the dynamic fields to avoid index-shuffling issues
@@ -28,7 +29,7 @@ export default function CreateCityForm() {
               <TabsTrigger value="media">3. Media</TabsTrigger>
             </TabsList>
             {/* The Submit button is inside the form, so it works from any tab */}
-            <SubmitButton title="Public Destination"/>
+            <SubmitButton title="Public Destination" />
           </div>
 
           {/* TAB 1: BASIC DETAILS */}
@@ -46,9 +47,10 @@ export default function CreateCityForm() {
                     <Select name="province" required>
                       <SelectTrigger><SelectValue placeholder="Select Province" /></SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="WESTERN_CAPE">Western Cape</SelectItem>
-                        <SelectItem value="GAUTENG">Gauteng</SelectItem>
-                        <SelectItem value="MPUMALANGA">Mpumalanga</SelectItem>
+                        {adminProvinces.map((p) => {
+                          const { value, title } = p;
+                          return <SelectItem key={value} value={value.toUpperCase()}>{title}</SelectItem>
+                        })}
                       </SelectContent>
                     </Select>
                   </div>
@@ -80,9 +82,9 @@ export default function CreateCityForm() {
                       <Select name={`attractionCat_${index}`} required>
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="NATURE">Nature</SelectItem>
-                          <SelectItem value="FOOD">Food</SelectItem>
-                          <SelectItem value="CULTURE">Culture</SelectItem>
+                          {adminAattractions.map((a) => {
+                            return <SelectItem className='capitalize' key={a.value} value={a.value.toUpperCase()}>{a.title}</SelectItem>
+                          })}
                         </SelectContent>
                       </Select>
                     </div>

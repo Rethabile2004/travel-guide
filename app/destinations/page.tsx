@@ -11,7 +11,7 @@ export default async function DestinationsPage({ searchParams }: DestinationsPag
   const cities = await getCities(search, province);
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-12 h-screen">
+    <main className="mx-auto max-w-7xl px-4 py-12">
       <SectionTitle desc="Explore cities and start planning your next trip." title="Destinations" />
       <Filters provinces={provinces} />
 
@@ -24,7 +24,9 @@ export default async function DestinationsPage({ searchParams }: DestinationsPag
         </div>
 
       ) : (
-        <CityGrid cities={cities} />
+        <section>
+          <CityGrid cities={cities} />
+        </section>
       )}
     </main>
   );

@@ -21,6 +21,54 @@ export const provinces = [
     "North_West"
 ];
 
+export const adminProvinces = [
+    {
+        value:
+            "Western_Cape",
+        title: "Western Cape"
+    },
+    {
+        value:
+            "KwaZulu_Natal",
+        title: "KwaZulu Natal",
+    },
+    {
+        value:
+            "Mpumalanga",
+        title: "Mpumalanga",
+    },
+    {
+        value:
+            "Limpopo",
+        title: "Limpopo",
+    },
+    {
+        value:
+            "North_West",
+        title: "North West"
+    },
+    {
+        value:
+            "Free_State",
+        title: "Free State",
+    },
+    {
+        value:
+            "Gauteng",
+        title: "Gauteng",
+    },
+    {
+        value:
+            "Northern_Cape",
+        title: "Northern_Cape",
+    },
+    {
+        value:
+            "Eastern_Cape",
+        title: "Eastern_Cape",
+    },
+];
+
 
 export const mockTestimonials = [
     { id: 1, quote: "This platform made planning my trip to Japan a breeze! The guides are incredibly detailed and helpful.", name: "Sarah L." },
@@ -30,7 +78,55 @@ export const mockTestimonials = [
 
 
 export const mockDestinations: Destination[] = [
-  { id: 1, name: "Western Cape", country: "ZA", imageUrl: "/profile/demo2.jpg", rating: 4.8, description: "The city of lights and romance. Explore historical landmarks and amazing cuisine." },
-  { id: 2, name: "Gauteng", country: "ZA", imageUrl: "/profile/demo3.jpg", rating: 4.9, description: "Ancient temples, beautiful gardens, and rich cultural experiences await." },
-  { id: 3, name: "Free State", country: "ZA", imageUrl: "/profile/demo1.jpg", rating: 4.7, description: "The city that never sleeps. Find your adventure from Broadway to Central Park." },
+    { id: 1, name: "Western Cape", country: "ZA", imageUrl: "/profile/demo2.jpg", rating: 4.8, description: "The city of lights and romance. Explore historical landmarks and amazing cuisine." },
+    { id: 2, name: "Gauteng", country: "ZA", imageUrl: "/profile/demo3.jpg", rating: 4.9, description: "Ancient temples, beautiful gardens, and rich cultural experiences await." },
+    { id: 3, name: "Free State", country: "ZA", imageUrl: "/profile/demo1.jpg", rating: 4.7, description: "The city that never sleeps. Find your adventure from Broadway to Central Park." },
 ];
+
+export const adminAattractions = [
+    {
+        value:
+            "nature",
+        title: "nature",
+    },
+    {
+        value:
+            "landmark",
+        title: "landmark",
+    },
+    {
+        value:
+            "culture",
+        title: "culture",
+    },
+    {
+        value:
+            "history",
+        title: "history",
+    },
+    {
+        value:
+            "entertainment",
+        title: "entertainment",
+    },
+    {
+        value:
+            "wildlife",
+        title: "wildlife",
+    },
+    {
+        value:
+            "shopping",
+        title: "shopping",
+    },
+    {
+        value:
+            "outdoors",
+        title: "outdoors",
+    },
+    {
+        value:
+            "food",
+        title: "food",
+    },
+]
