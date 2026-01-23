@@ -1,7 +1,11 @@
+'use client'
 import Link from "next/link";
 import { navLinks } from "@/utils/links";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathName = usePathname()
+  if (pathName.includes('admin')) return <></>
   return (
     <footer className="border-t bg-background">
       <div className="mx-auto max-w-7xl px-4 py-10">
@@ -92,7 +96,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        
+
 
         {/* Bottom bar */}
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t pt-6 text-sm text-muted-foreground md:flex-row">

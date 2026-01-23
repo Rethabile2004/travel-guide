@@ -5,15 +5,17 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import FavoriteToggleButton from "@/components/global/FavoriteToggleButton"
-
+import ReactMarkdown from 'react-markdown'
 type PageProps = {
   params: { slug: string }
 }
 
 export default async function GuideDetailPage({ params }: PageProps) {
-  const guide = await getGuideBySlug(params.slug)
+  const { slug } = await params
 
+  const guide = await getGuideBySlug(slug)
   if (!guide) notFound()
+  const outputGuide = guide.content.split('. ').join('.\n\n')
 
   const isLocked = guide.isPremium
   const relatedGuides = await getCityGuides(guide.cityId, guide.id)
@@ -68,7 +70,15 @@ export default async function GuideDetailPage({ params }: PageProps) {
         ) : (
           <Card>
             <CardContent className="prose prose-neutral max-w-none py-8">
-              {guide.content}
+              <section className="prose prose-neutral dark:prose-invert max-w-none">
+                <article>
+                  {outputGuide
+                    .split("\n\n")
+                    .map((block, i) => (
+                      <p key={i} className="mt-2">{block}</p>
+                    ))}
+                </article>
+              </section>
             </CardContent>
 
             <div className="border-t px-6 py-4 flex justify-between items-center">
