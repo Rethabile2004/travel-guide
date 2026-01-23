@@ -55,6 +55,5 @@ export async function getCityGuides(cityId: string, excludeGuideId?: string) {
       // published: true,
     },
     orderBy: { createdAt: "desc" },
-    take: 4,
   })
 }
