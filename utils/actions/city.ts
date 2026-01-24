@@ -44,8 +44,6 @@ const filterBothByCityAndProvine = (search: string, province: string, cities: Ci
 }
 
 const searchProvince = (province: string, cities: City[]) => {
-    // console.log();
-
     let searchedCities: City[] = [];
     if (province) {
         searchedCities = cities.filter((c) => {
@@ -63,7 +61,6 @@ const searchCity = (search: string, cities: City[]) => {
     let searchedCities: City[] = [];
     if (search) {
         searchedCities = cities.filter((c) => {
-
             const match = c.province.toLowerCase().includes(search.toLowerCase())
             const province = c.name.toLowerCase().includes(search.toLowerCase())
             return match || province

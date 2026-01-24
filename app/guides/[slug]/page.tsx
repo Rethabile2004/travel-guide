@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import FavoriteToggleButton from "@/components/global/FavoriteToggleButton"
 import ReactMarkdown from 'react-markdown'
+import Image from "next/image"
 type PageProps = {
   params: { slug: string }
 }
@@ -90,6 +91,31 @@ export default async function GuideDetailPage({ params }: PageProps) {
           </Card>
         )}
       </section>
+      <div className="relative rounded-xl border overflow-hidden transition hover:shadow-md group">
+        <Link
+          href={`/destinations/${guide.slug}`}
+          className=""
+        >
+          <div className="relative h-48 w-full">
+            <Image
+              src={guide.city.heroImageUrl}
+              alt={guide.city.name}
+              fill
+              className="object-cover transition group-hover:scale-105"
+            />
+          </div>
+
+          <div className="p-4">
+            <h3 className="font-semibold">{guide.city.name}</h3>
+            <p className="text-xs text-muted-foreground">
+              {guide.city.province.replace("_", " ")}
+            </p>
+            <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
+              {guide.city.description}
+            </p>
+          </div>
+        </Link>
+      </div>
 
       {/* RELATED GUIDES */}
       {relatedGuides.length > 0 && (

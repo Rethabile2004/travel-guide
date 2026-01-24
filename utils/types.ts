@@ -59,6 +59,10 @@ export interface DestinationsPageProps {
     searchParams: SearchParams;
 }
 
+export type GuidesPageProps = {
+    searchParams: SearchParams;
+}
+
 export type PageProps = {
     params: { slug: string }
 }

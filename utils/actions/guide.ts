@@ -1,9 +1,24 @@
 "use server"
 
+import { Guide } from "@/app/generated/prisma/client"
 import prisma from "../db"
 
-export async function getGuides() {
-  return prisma.guide.findMany({
+type GuideType = {
+  id: string;
+  title: string;
+  slug: string;
+  summary: string;
+  isPremium: boolean;
+  city: {
+    slug: string;
+    name: string;
+    province: string
+  };
+}
+
+export async function getGuides(province?: string, search?: string) {
+
+  const guides = await prisma.guide.findMany({
     orderBy: {
       createdAt: "desc",
     },
@@ -17,10 +32,22 @@ export async function getGuides() {
         select: {
           name: true,
           slug: true,
+          province: true
         },
       },
     },
   })
+  let filterGuides: GuideType[] = guides;
+  if (province) {
+    const filtered = searchProvince(province, filterGuides)
+    filterGuides = filtered
+  }
+
+  if (search) {
+    const filtered = searchCity(search, filterGuides)
+    return filtered
+  }
+  return guides
 }
 
 export async function getGuideBySlug(slug: string) {
@@ -32,6 +59,9 @@ export async function getGuideBySlug(slug: string) {
         select: {
           name: true,
           slug: true,
+          heroImageUrl: true,
+          description: true,
+          province: true
         },
       },
     },
@@ -52,8 +82,36 @@ export async function getCityGuides(cityId: string, excludeGuideId?: string) {
     where: {
       cityId,
       id: excludeGuideId ? { not: excludeGuideId } : undefined,
-      // published: true,
     },
     orderBy: { createdAt: "desc" },
   })
+}
+
+const searchProvince = (province: string, guides: GuideType[]) => {
+  if (province.includes('_')) {
+
+  }
+  let searchedGuides: GuideType[] = [];
+  if (province) {
+    searchedGuides = guides.filter((c) => {
+      const secondSearch = c.city.province.toLowerCase().includes(province.toLowerCase())
+      return secondSearch
+    })
+    return searchedGuides
+  }
+  return guides;
+}
+
+const searchCity = (search: string, cities: GuideType[]) => {
+  let searchedCities: GuideType[] = [];
+  if (search) {
+    searchedCities = cities.filter((c) => {
+      const match = c.city.province.toLowerCase().includes(search.toLowerCase())
+      const province = c.city.name.toLowerCase().includes(search.toLowerCase())
+      return match || province
+    })
+    return searchedCities
+  }
+  return cities;
+
 }

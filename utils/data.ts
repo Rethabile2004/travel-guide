@@ -76,7 +76,6 @@ export const mockTestimonials = [
     { id: 3, quote: "Worth every penny for the premium content. Saved us hours of research.", name: "Chris T." },
 ];
 
-
 export const mockDestinations: Destination[] = [
     { id: 1, name: "Western Cape", country: "ZA", imageUrl: "/profile/demo2.jpg", rating: 4.8, description: "The city of lights and romance. Explore historical landmarks and amazing cuisine." },
     { id: 2, name: "Gauteng", country: "ZA", imageUrl: "/profile/demo3.jpg", rating: 4.9, description: "Ancient temples, beautiful gardens, and rich cultural experiences await." },
