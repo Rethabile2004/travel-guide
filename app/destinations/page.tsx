@@ -5,6 +5,7 @@ import { DestinationsPageProps } from "@/utils/types";
 import Filters from "@/components/destination/Filters";
 import SectionTitle from "@/components/global/SectionTitle";
 import CityGrid from "@/components/global/CityGrid";
+import { Suspense } from "react";
 
 export default async function DestinationsPage({ searchParams }: DestinationsPageProps) {
   const { search, province } = await searchParams
@@ -25,7 +26,9 @@ export default async function DestinationsPage({ searchParams }: DestinationsPag
 
       ) : (
         <section>
-          <CityGrid cities={cities} />
+          <Suspense>
+            <CityGrid cities={cities} />
+          </Suspense>
         </section>
       )}
     </main>

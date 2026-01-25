@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import Image from "next/image"
 import { getCityBySlug } from "@/utils/actions/city"
 import CityReviews from "@/components/reviews/CityReviews"
@@ -6,11 +6,17 @@ import SubmitReview from "@/components/reviews/SubmitReview"
 import FavoriteToggleButton from "@/components/global/FavoriteToggleButton"
 import { ShareButton } from "@/components/global/ShareButton"
 import { PageProps } from '@/utils/types'
+import { userHasAddedAReview } from "@/utils/actions/review"
+import CityRating from "@/components/reviews/CityRating"
+import { UserSignInButton } from "@/components/global/UserSignInButton"
 
 export default async function DestinationDetailPage({ params }: PageProps) {
   const { slug } = await params
   const city = await getCityBySlug(slug)
-
+  if (!city) {
+    redirect('/products')
+  }
+  const canAddReview = await userHasAddedAReview(city.id)
   if (!city) {
     notFound()
   }
@@ -35,10 +41,14 @@ export default async function DestinationDetailPage({ params }: PageProps) {
               <ShareButton />
             </div>
           </div>
+          <p className="-mb-2 text-muted-foreground font-semibold">
+            <CityRating cityId={city.id} />
+          </p>
           <p className="mt-2 text-muted-foreground">
             {city.province.replace("_", " ")}
           </p>
           <p className="mt-6 text-lg">{city.description}</p>
+          <UserSignInButton />
         </div>
       </section>
       <section>
@@ -75,15 +85,18 @@ export default async function DestinationDetailPage({ params }: PageProps) {
           </div>
         )}
       </section>
+      {/* {city} */}
       <section>
-        <h2 className="mb-6 text-2xl font-semibold">Reviews</h2>
+        <h2 className="mb-3 text-2xl font-semibold">Reviews</h2>
+        {canAddReview ? <SubmitReview cityId={city.id} /> : <></>}
         {city.reviews.length === 0 ? (
           <>
             <CityReviews cityId={city.id} />
-            <SubmitReview cityId={city.id} />
           </>
         ) : (
-          <CityReviews cityId={city.id} />
+          <div className="flex gap-x-2">
+            <CityReviews cityId={city.id} />
+          </div>
         )}
       </section>
     </main>

@@ -1,5 +1,4 @@
 import { CityGridType } from '@/utils/types'
-import React from 'react'
 import { CityCard } from '../destination/CityCard'
 import FavoriteToggleButton from './FavoriteToggleButton'
 

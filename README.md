@@ -28,20 +28,20 @@ This project demonstrates:
 ### **Core Technologies**
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg" width="40" />
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="40" />
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" width="40" />
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg" width="40" />
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/prisma/prisma-original.svg" width="40" />
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg" width="80" />
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="80" />
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" width="80" />
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg" width="80" />
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/prisma/prisma-original.svg" width="80" />
 </p>
 
 ### **Platform & Services**
 
 <p align="left">
-  <img src="https://avatars.githubusercontent.com/u/54469796?s=200&v=4" width="40" title="Supabase" />
-  <img src="https://avatars.githubusercontent.com/u/7802525?s=200&v=4" width="40" title="Clerk" />
-  <img src="https://avatars.githubusercontent.com/u/856813?s=200&v=4" width="40" title="Stripe" />
-  <img src="https://avatars.githubusercontent.com/u/75042455?s=200&v=4" width="40" title="Radix UI" />
+  <img src="https://avatars.githubusercontent.com/u/54469796?s=200&v=4" width="80" title="Supabase" />
+  <img src="https://avatars.githubusercontent.com/u/7802525?s=200&v=4" width="80" title="Clerk" />
+  <img src="https://avatars.githubusercontent.com/u/856813?s=200&v=4" width="80" title="Stripe" />
+  <img src="https://avatars.githubusercontent.com/u/75042455?s=200&v=4" width="80" title="Radix UI" />
 </p>
 
 ---
@@ -132,12 +132,12 @@ This project demonstrates:
 
 ### **Utility & Legal**
 
-| Route      | Description        |
-| ---------- | ------------------ |
-| `/about`   | About the platform |
-| `/contact` | Contact form       |
-| `/privacy` | Privacy policy     |
-| `/terms`   | Terms & conditions |
+| Route               | Description        |
+| ------------------- | ------------------ |
+| `/about`            | About the platform |
+| `/contact`          | Contact form       |
+| `/privacy`          | Privacy policy     |
+| `/privacy/terms`    | Terms & conditions |
 
 ### **Error Handling**
 
@@ -196,8 +196,8 @@ This project demonstrates:
 ### **Installation**
 
 ```bash
-git clone https://github.com/rethabile2004/travel-guide-platform.git
-cd travel-guide-platform
+git clone https://github.com/rethabile2004/travel-guide.git
+cd travel-guide
 npm install
 ```
 

@@ -8,6 +8,7 @@ import TextAreaInput from './TextAreaInput';
 import { Button } from '@/components/ui/button';
 import { createReviewAction } from '@/utils/actions/review';
 import { useUser } from '@clerk/nextjs';
+
 function SubmitReview({ cityId }: { cityId: string }) {
   const [isReviewFormVisible, setIsReviewFormVisible] = useState(false);
   const { user } = useUser();
@@ -27,7 +28,7 @@ function SubmitReview({ cityId }: { cityId: string }) {
             <input
               type='hidden'
               name='authorName'
-              value={user?.firstName || 'user'}
+              value={`${user?.firstName} ${user?.lastName}` || 'user'}
             />
             <input
               type='hidden'
