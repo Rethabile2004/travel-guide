@@ -88,14 +88,15 @@ export async function getCityGuides(cityId: string, excludeGuideId?: string) {
 }
 
 const searchProvince = (province: string, guides: GuideType[]) => {
-  if (province.includes('_')) {
-
-  }
+  // const searchProvince=province
+  // if (province.includes('_')) {
+  //   searchProvince.replace('_',' ');
+  // }
   let searchedGuides: GuideType[] = [];
   if (province) {
     searchedGuides = guides.filter((c) => {
-      const secondSearch = c.city.province.toLowerCase().includes(province.toLowerCase())
-      return secondSearch
+      const match = c.city.province.toLowerCase().includes(province.toLowerCase())
+      if(match)return c
     })
     return searchedGuides
   }

@@ -7,6 +7,15 @@ import { GuidesPageProps } from "@/utils/types"
 
 export default async function GuidesPage({ searchParams }: GuidesPageProps) {
   const { province, search } = await searchParams
+  console.log(province,search)
+  // console.log(province,search)
+  // console.log(province,search)
+  // console.log(province,search)
+  // console.log(province,search)
+  // console.log(province,search)
+  // console.log(province,search)
+  // console.log(province,search)
+  // console.log(province,search)
   const guides = await getGuides(province, search)
 
   return (

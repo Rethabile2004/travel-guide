@@ -12,6 +12,10 @@ const FormContainer = ({ action, children }: { action: (prevState: any, formData
     const [state, formAction] = useActionState(action, initialState)
     useEffect(() => {
         if (state.message) {
+            if(state.message==='Review created successfully'){
+                toast.success('Review created successfully!')
+            }
+
             if (state.message === 'Guide added successfully') {
                 toast("Guide has been created", {
                     description: Date.now().toLocaleString(),

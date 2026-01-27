@@ -105,7 +105,7 @@ export const ReviewSchema = z.object({
 export const createReviewAction = async (
     prevState: any,
     formData: FormData
-) => {
+): Promise<{ message: string }> => {
     const user = await getAuthUser();
     try {
         const rawData = Object.fromEntries(formData);
@@ -116,10 +116,8 @@ export const createReviewAction = async (
                 userId: user.id
             },
         });
-
         revalidatePath(`/cities/${validatedFields.cityId}`);
         return { message: 'Review created successfully' }
-        return { message: 'Review submitted successfully' };
     } catch (error) {
         return renderError(error);
     }
@@ -157,7 +155,7 @@ export const userHasAddedAReview = async (cityId: string) => {
             cityId
         }
     });
-    if (hasReview===null) {
+    if (hasReview === null) {
         return true
     }
     return false

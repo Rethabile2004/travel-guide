@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { cityRating } from "@/utils/actions/review"
+import CityRating from "../reviews/CityRating"
 
 type CityCardProps = {
     city: {
@@ -35,7 +36,7 @@ export async function CityCard({ city, children }: CityCardProps) {
                 <div className="p-4">
                     <h3 className="font-semibold">{city.name}</h3>
                     <p className="text-xs text-muted-foreground">
-                        {city.province.replace("_", " ")} | {reviewCount} reviews | {rating} rating
+                       <CityRating cityId={city.id} />
                     </p>
                     <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
                         {city.description}
