@@ -15,7 +15,7 @@ export default async function TripsPage() {
         <CreateTripButton />
       </div>
       {trips.length === 0 ? (
-        <EmptyState description="Start plannig your first trip" href='/destinations/trips/new' text='Create Trip' title='No trips yet' />
+        <EmptyState description="Start plannig your first trip" href='/dashboard/destinations/trips/new' text='Create Trip' title='No trips yet' />
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {trips.map((trip) => (

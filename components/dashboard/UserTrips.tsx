@@ -4,6 +4,7 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { MdModeEditOutline } from 'react-icons/md'
 import { UserTripsType } from '@/utils/types'
+import TripClientPage from './TripDownloadButton'
 
 const UserTrips = ({ trip }: { trip: UserTripsType }) => {
     return (
@@ -31,6 +32,7 @@ const UserTrips = ({ trip }: { trip: UserTripsType }) => {
                 )}
 
                 {trip.notes && <p className="mt-2">{trip.notes}</p>}
+                <TripClientPage tripData={trip}/>
             </CardContent>
         </Card>
     )
