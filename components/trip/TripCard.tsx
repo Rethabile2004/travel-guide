@@ -4,8 +4,8 @@ type TripCardProps = {
   trip: {
     id: string
     title: string
-    startDate: Date|null
-    endDate: Date|null
+    startDate: Date | null
+    endDate: Date | null
     notes: string | null
   }
 }
@@ -13,7 +13,7 @@ type TripCardProps = {
 export function TripCard({ trip }: TripCardProps) {
   return (
     <div className="rounded-xl border p-4 space-y-2">
-      <h3 className="text-lg font-semibold">{trip.title}</h3>
+      <h3 className="text-lg font-semibold">{trip.title}: {trip.id}</h3>
 
       <p className="text-sm text-muted-foreground">
         {format(trip.startDate!, "MMM d, yyyy")} →{" "}

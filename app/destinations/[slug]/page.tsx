@@ -9,6 +9,8 @@ import { PageProps } from '@/utils/types'
 import { userHasAddedAReview } from "@/utils/actions/review"
 import CityRating from "@/components/reviews/CityRating"
 import { UserSignInButton } from "@/components/global/UserSignInButton"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default async function DestinationDetailPage({ params }: PageProps) {
   const { slug } = await params
@@ -16,6 +18,7 @@ export default async function DestinationDetailPage({ params }: PageProps) {
   if (!city) {
     redirect('/products')
   }
+  
   const canAddReview = await userHasAddedAReview(city.id)
   if (!city) {
     notFound()
@@ -48,6 +51,10 @@ export default async function DestinationDetailPage({ params }: PageProps) {
             {city.province.replace("_", " ")}
           </p>
           <p className="mt-6 text-lg">{city.description}</p>
+          
+          <Button>
+            <Link href='dashboard/trips/new'>Create a trip</Link>
+          </Button>
           <UserSignInButton />
         </div>
       </section>
