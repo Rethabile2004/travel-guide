@@ -11,6 +11,9 @@ import CityRating from "@/components/reviews/CityRating"
 import { UserSignInButton } from "@/components/global/UserSignInButton"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { auth } from "@clerk/nextjs/server"
+import CreateOrEditForm from "@/components/form/NewTripPage"
+import { CreateTripPopOver } from "@/components/destination/CreateTripPopOver"
 
 export default async function DestinationDetailPage({ params }: PageProps) {
   const { slug } = await params
@@ -18,7 +21,7 @@ export default async function DestinationDetailPage({ params }: PageProps) {
   if (!city) {
     redirect('/products')
   }
-  
+  const { userId } = await auth()
   const canAddReview = await userHasAddedAReview(city.id)
   if (!city) {
     notFound()
@@ -51,11 +54,11 @@ export default async function DestinationDetailPage({ params }: PageProps) {
             {city.province.replace("_", " ")}
           </p>
           <p className="mt-6 text-lg">{city.description}</p>
-          
-          <Button>
-            <Link href='dashboard/trips/new'>Create a trip</Link>
-          </Button>
-          <UserSignInButton />
+          {userId ?
+            <UserSignInButton />
+            :
+            <CreateTripPopOver city={city}/>
+          }
         </div>
       </section>
       <section>
