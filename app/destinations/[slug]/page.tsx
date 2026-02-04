@@ -1,3 +1,4 @@
+'use client'
 import { notFound, redirect } from "next/navigation"
 import Image from "next/image"
 import { getCityBySlug } from "@/utils/actions/city"
@@ -14,9 +15,12 @@ import Link from "next/link"
 import { auth } from "@clerk/nextjs/server"
 import CreateOrEditForm from "@/components/form/NewTripPage"
 import { CreateTripPopOver } from "@/components/destination/CreateTripPopOver"
+import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover"
+import { useState } from "react"
 
 export default async function DestinationDetailPage({ params }: PageProps) {
   const { slug } = await params
+  const [open, setOpen] = useState(false)
   const city = await getCityBySlug(slug)
   if (!city) {
     redirect('/products')
@@ -57,7 +61,19 @@ export default async function DestinationDetailPage({ params }: PageProps) {
           {userId ?
             <UserSignInButton />
             :
-            <CreateTripPopOver city={city}/>
+            <Popover open={open} onOpenChange={setOpen}>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                      Create Trip
+                    </Button>
+                  </PopoverTrigger>
+            
+                  <PopoverContent className="w-56 p-0" align="end">
+                    Testing
+                   {/* <CreateTripForm cities={provinces}/> */}
+                  </PopoverContent>
+                </Popover>
+            // <CreateTripPopOver city={city}/>
           }
         </div>
       </section>
