@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 const CreateTripButton = () => {
     return (
-        <Button asChild>
+        <Button asChild className='hover:pointer'>
             <Link href="/dashboard/trips/new">Create Trip</Link>
         </Button>
     )

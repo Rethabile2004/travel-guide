@@ -32,10 +32,11 @@ import CreateOrEditForm from "@/components/form/NewTripPage";
 import { City } from "@/utils/shema";
 import { getCitiyNames } from "@/utils/actions/city";
 
-export default async function CreateTripPage() {
+export default async function CreateTripPage({ params }: { params: { slug: string } }) {
 
     const cities = await getCitiyNames()
-
+    const { slug } = await params
+    
     return (
         <CreateOrEditForm key='create' cities={cities} />
     );

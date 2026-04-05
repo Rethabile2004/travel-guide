@@ -16,6 +16,16 @@ const FormContainer = ({ action, children }: { action: (prevState: any, formData
                 toast.success('Review created successfully!')
             }
 
+            if (state.message === 'Trip created successfully') {
+                toast("Guide has been created", {
+                    description: Date.now().toLocaleString(),
+                    action: {
+                        label: "Close",
+                        onClick: () => { },
+                    },
+                })
+                redirect('/dashboard/trips')
+            }
             if (state.message === 'Guide added successfully') {
                 toast("Guide has been created", {
                     description: Date.now().toLocaleString(),
@@ -26,6 +36,7 @@ const FormContainer = ({ action, children }: { action: (prevState: any, formData
                 })
                 redirect('/admin/destinations')
             }
+            // Trip created successfully
             if (state.message === 'Guide updated successfully') {
                 toast("Guide has been updated successfully", {
                     description: Date.now().toLocaleString(),

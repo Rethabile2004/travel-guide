@@ -31,17 +31,6 @@ export default function AddGuideDialog({ cityId, cityName }: AddGuideDialogProps
 
     const createGuideWithCityId = createGuide.bind(null, { cityId });
 
-    // const handleSubmit = async (formData: FormData) => {
-    //     try {
-    //         await createGuideWithCityId(formData);
-    //         setOpen(false);
-    //         formRef.current?.reset();
-    //     } catch (error) {
-    //         console.error(error);
-    //         alert(error instanceof Error ? error.message : "An unexpected error occurred.");
-    //     }
-    // };
-
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>

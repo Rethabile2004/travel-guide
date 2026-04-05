@@ -21,6 +21,7 @@ export default function CreateOrEditForm({ cities, trip }: { cities: any[], trip
         from: trip?.startDate ? new Date(trip.startDate) : undefined,
         to: trip?.endDate ? new Date(trip.endDate) : undefined,
     });
+    const [dateError, setDateError] = useState(false);
 
     const formAction = trip ? editTrip : createTrip;
 
@@ -67,12 +68,19 @@ export default function CreateOrEditForm({ cities, trip }: { cities: any[], trip
                         </Select>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-medium">Dates</label>
+                        <label className="text-sm font-medium">
+                            Dates <span className="text-destructive">*</span>
+                        </label>
                         <Popover>
                             <PopoverTrigger asChild>
                                 <Button
-                                    variant={"outline"}
-                                    className={cn("w-full justify-start text-left font-normal", !date && "text-muted-foreground")}
+                                    type="button"
+                                    variant="outline"
+                                    className={cn(
+                                        "w-full justify-start text-left font-normal",
+                                        !date && "text-muted-foreground",
+                                        dateError && "border-destructive"   // red border if not picked
+                                    )}
                                 >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
                                     {date?.from ? (
@@ -92,17 +100,28 @@ export default function CreateOrEditForm({ cities, trip }: { cities: any[], trip
                                     mode="range"
                                     defaultMonth={date?.from}
                                     selected={date}
-                                    onSelect={setDate}
+                                    onSelect={(val) => {
+                                        setDate(val);
+                                        setDateError(false);  // clear error once user picks
+                                    }}
                                     numberOfMonths={2}
                                 />
                             </PopoverContent>
                         </Popover>
+                        {dateError && (
+                            <p className="text-xs text-destructive">Please select a date range.</p>
+                        )}
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium">Notes</label>
                         <Textarea name="notes" defaultValue={trip?.notes || ""} placeholder="Notes..." className="min-h-25" />
                     </div>
-                    <Button type="submit" className="w-full">
+                    <Button type="submit" className="w-full cursor:pointer" onClick={(e) => {
+                        if (!date?.from || !date?.to) {
+                            e.preventDefault();
+                            setDateError(true);
+                        }
+                    }}>
                         {trip ? "Update Trip" : "Create Trip"}
                     </Button>
                 </CardContent>
